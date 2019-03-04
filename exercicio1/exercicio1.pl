@@ -15,24 +15,8 @@
 :- dynamic utente/4, servico/4, consulta/4.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Base de Conhecimento com informação sobre utentes, serviços e consultas
-
-%--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Extensao do predicado utente:
-%                    #IdUt,Nome,Idade,Cidade -> {V,F}
-
-utente(1,carlos,31,porto).
-
-%--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Extensao do predicado serviço:
-%                    #IdServ,Descrição,Instituição,Cidade -> {V,F}
-
-%--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Extensao do predicado consulta:
-%                    Data,#IdUt,#IdServ,Custo -> {V,F}
-
-%--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Registar utentes, serviços e consultas
+%Carregar predicados do ficheiro no qual é guardado o estado
+:- include('state.pl').
 
 idadeValida(I) :- I >= 0.
 custoValido(C) :- C >= 0.
@@ -56,3 +40,28 @@ novaConsulta(D,IdU,IdS,C) :- fail.
 
 nao(Q) :- Q,!,fail.
 nao(Q).
+
+saveUtente(Stream) :- utente(A,B,C,D),
+        write(Stream, 'utente('),write(Stream, A),write(Stream, ','),
+        write(Stream, B), write(Stream, ','), write(Stream, C),
+        write(Stream, ','), write(Stream, D), write(Stream, ').\n'),
+    fail; true.
+
+saveServico(Stream) :- servico(A,B,C,D),
+        write(Stream, 'servico('),write(Stream, A),write(Stream, ','),
+        write(Stream, B), write(Stream, ','), write(Stream, C),
+        write(Stream, ','), write(Stream, D), write(Stream, ').\n'),
+    fail; true.
+
+saveConsulta(Stream) :- consulta(A,B,C,D),
+        write(Stream, 'consulta('),write(Stream, A),write(Stream, ','),
+        write(Stream, B), write(Stream, ','), write(Stream, C),
+        write(Stream, ','), write(Stream, D), write(Stream, ').\n'),
+    fail; true.
+
+saveState :- 
+    open('state.pl', write, Stream),
+    saveUtente(Stream),
+    saveServico(Stream),
+    saveConsulta(Stream),
+    close(Stream).
