@@ -15,8 +15,11 @@
 :- dynamic utente/4, servico/4, consulta/4.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-%Carregar predicados do ficheiro no qual é guardado o estado
+% Carregar predicados do ficheiro no qual é guardado o estado
 :- include('state.pl').
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Registar utentes, serviços e consultas
 
 idadeValida(I) :- I >= 0.
 custoValido(C) :- C >= 0.
@@ -31,9 +34,17 @@ novoServico(Id,D,I,C) :- fail.
 novaConsulta(D,IdU,IdS,C) :- utente(IdU,_,_,_), servico(IdS,_,_,_),
                              custoValido(C), assert(consulta(D,IdU,IdS,C)).
 novaConsulta(D,IdU,IdS,C) :- fail.
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Remover utentes, serviços e consultas
 
+removeUtente(Id) :- retract(utente(Id,_,_,_)),
+                    retract(consulta(_,Id,_,_)).
 
+removeServico(Id) :- retract(servico(Id,_,_,_)),
+                     retract(consulta(_,_,Id,_)).
+
+removeConsulta(IdU,IdS) :- retract(consulta(_,IdU,IdS,_)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Funções Auxiliares
@@ -59,7 +70,7 @@ saveConsulta(Stream) :- consulta(A,B,C,D),
         write(Stream, ','), write(Stream, D), write(Stream, ').\n'),
     fail; true.
 
-saveState :- 
+saveState :-
     open('state.pl', write, Stream),
     saveUtente(Stream),
     saveServico(Stream),
