@@ -5,9 +5,11 @@
 nao(Q) :- Q,!,fail.
 nao(Q).
 
+
 % Somatório
 soma([],0).
 soma([X|XS],Total) :- soma(XS, Acumulado), Total is X + Acumulado.
+
 
 % Averigua se elemento pertence a uma lista
 pertence(A,[A|XS]).
