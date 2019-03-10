@@ -21,4 +21,4 @@ eliminaRepetidos(X, R) :- eliminaRepAux(X,[],R).
 
 eliminaRepAux([],Acc,Acc).
 eliminaRepAux([X|XS],Acc,R) :- pertence(X,Acc), eliminaRepAux(XS,Acc,R).
-eliminaRepAux([X|XS],Acc,R) :- eliminaRepAux(XS,[X|Acc], R).
+eliminaRepAux([X|XS],Acc,R) :- eliminaRepAux(XS,[X|Acc],R).
