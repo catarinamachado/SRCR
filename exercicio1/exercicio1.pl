@@ -18,6 +18,8 @@
 % Carregar predicados do ficheiro no qual é guardado o estado
 :- include('state.pl').
 
+:- include('funcoesAuxiliares.pl').
+:- include('identificacoes.pl').
 :- include('stateControl.pl').
 :- include('calculoDeCustos.pl').
 
@@ -49,11 +51,3 @@ removeServico(Id) :- retract(servico(Id,_,_,_)),
 
 removeConsulta(IdU,IdS) :- retract(consulta(_,IdU,IdS,_)).
 
-%--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Funções Auxiliares
-
-nao(Q) :- Q,!,fail.
-nao(Q).
-
-soma([],0).
-soma([X|XS],Total) :- soma(XS, Acumulado), Total is X + Acumulado.

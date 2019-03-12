@@ -7,6 +7,8 @@ utente(4,'Catarina',20,'Braga').
 % serviço: #IdServ,Descrição,Instituição,Cidade -> {V,F}
 servico(1,'Pediatria','Hospital Santa Maria','Porto').
 servico(2,'Ortopedia','Hospital de Braga','Braga').
+servico(3,'Oftomologia','Hospital Santa Maria','Porto').
+servico(4,'Cardiologia','Hospital de Braga','Braga').
 
 % consulta: Data,#IdUt,#IdServ,Custo -> {V,F}
 consulta('01-01-2010',1,1,10).
