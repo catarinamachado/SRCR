@@ -12,7 +12,10 @@
 :- set_prolog_flag( single_var_warnings,off ).
 :- set_prolog_flag( unknown,fail ).
 
-:- dynamic utente/4, servico/4, consulta/4.
+:- op(900,xfy,'::').
+:- dynamic utente/4.
+:- dynamic servico/4.
+:- dynamic consulta/4.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Carregar predicados do ficheiro no qual é guardado o estado
