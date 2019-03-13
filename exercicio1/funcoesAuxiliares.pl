@@ -9,7 +9,11 @@ nao(Q) :- Q, insucesso.
 nao(Q).
 
 % Encontra todas as soluções
-solucoes(X, XS, L) :- findall(X, XS, L).
+solucoes(X, XS, R) :- XS, assert(tmp(X)), fail.
+solucoes(X, XS, R) :- construir([], R).
+
+construir(L, R) :- retract(tmp(X)), !, construir([X|L], R).
+construir(R, R).
 
 % Comprimento de uma lista
 comprimento([], 0).
