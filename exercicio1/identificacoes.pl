@@ -31,13 +31,15 @@ servicoInstituicao(I, R) :- solucoes(servico(Id,D,I,C), servico(Id,D,I,C), R).
 servicoCidade(C, R) :- solucoes(servico(Id,D,I,C), servico(Id,D,I,C), R).
 
 %--------- Consultas
-consultaData(D,R) :- solucoes(consulta(D,IdU,IdS,C), consulta(D,IdU,IdS,C), R).
+consultaID(Id,R) :- solucoes(consulta(Id,D,IdU,IdS,C), consulta(Id,D,IdU,IdS,C), R).
 
-consultaIdUtente(IdU, R) :- solucoes(consulta(D,IdU,IdS,C), consulta(D,IdU,IdS,C), R).
+consultaData(D,R) :- solucoes(consulta(Id,D,IdU,IdS,C), consulta(Id,D,IdU,IdS,C), R).
 
-consultaIdServico(IdS, R) :- solucoes(consulta(D,IdU,IdS,C), consulta(D,IdU,IdS,C), R).
+consultaIdUtente(IdU, R) :- solucoes(consulta(Id,D,IdU,IdS,C), consulta(Id,D,IdU,IdS,C), R).
 
-consultaCusto(C, R) :- solucoes(consulta(D,IdU,IdS,C), consulta(D,IdU,IdS,C), R).
+consultaIdServico(IdS, R) :- solucoes(consulta(Id,D,IdU,IdS,C), consulta(Id,D,IdU,IdS,C), R).
+
+consultaCusto(C, R) :- solucoes(consulta(Id,D,IdU,IdS,C), consulta(Id,D,IdU,IdS,C), R).
 
 %--------- Médicos
 medicoID(Id, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
@@ -65,7 +67,7 @@ enfermeiroIdServico(IdS, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,
 % Identificar os utentes de um serviço/instituição
 
 utentesServico(IdS,R) :-
-    solucoes(IdU, consulta(D,IdU,IdS,C), I1),
+    solucoes(IdU, consulta(Id,D,IdU,IdS,C), I1),
     eliminaRepetidos(I1,I2),
     idUtenteParaUtente(I2,R).
 
@@ -88,7 +90,7 @@ servicosParaUtentesServicos([servico(Id,D,Ins,C)|XS], R) :-
 % Identificar serviços realizados por utente/instituição/cidade;
 
 servicosPorUtente(IdUtente, R) :-
-    solucoes(IdS, consulta(D,IdUtente,IdS,C), I1),
+    solucoes(IdS, consulta(Id,D,IdUtente,IdS,C), I1),
     eliminaRepetidos(I1, I2),
     idServicoParaServico(I2, R).
 

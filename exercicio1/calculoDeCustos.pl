@@ -2,12 +2,12 @@
 % Calcular o custo total dos cuidados de saúde por utente/serviço/instituição/data
 
 totalUtente(IdUtente, Total) :-
-    solucoes(Custo, consulta(_,IdUtente,_,Custo), Lista),
+    solucoes(Custo, consulta(_,_,IdUtente,_,Custo), Lista),
     soma(Lista, Total).
 
 
 totalServico(IdServ, Total) :-
-    solucoes(Custo, consulta(_,_,IdServ,Custo), Lista),
+    solucoes(Custo, consulta(_,_,_,IdServ,Custo), Lista),
     soma(Lista, Total).
 
 
@@ -23,5 +23,5 @@ totalInstituicao(NomeInstituicao, Total) :-
 
 
 totalData(Data, Total) :-
-    solucoes(Custo, consulta(Data,_,_,Custo), Lista),
+    solucoes(Custo, consulta(_,Data,_,_,Custo), Lista),
     soma(Lista, Total).

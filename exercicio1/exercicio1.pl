@@ -15,7 +15,7 @@
 :- op(900,xfy,'::').
 :- dynamic utente/6.
 :- dynamic servico/4.
-:- dynamic consulta/4.
+:- dynamic consulta/5.
 :- dynamic medico/5.
 :- dynamic enfermeiro/5.
 
@@ -47,7 +47,7 @@
 +utente(_,_,_,G,_,_) :: generoValido(G).
 
 % Garantir que não é possível remover um utente com consultas
--utente(Id,_,_,_,_,_) :: (solucoes(Id, consulta(_,Id,_,_), R),
+-utente(Id,_,_,_,_,_) :: (solucoes(Id, consulta(_,_,Id,_,_), R),
                          comprimento(R, 0)).
 
 
@@ -61,7 +61,7 @@
                       comprimento(R, 1)).
 
 % Garantir que não é possível remover um serviço associado a consultas
--servico(Id,_,_,_) :: (solucoes(Id, consulta(_,_,Id,_), R),
+-servico(Id,_,_,_) :: (solucoes(Id, consulta(_,_,_,Id,_), R),
                        comprimento(R, 0)).
 
 % Garantir que não é possível remover um serviço associado a um médico
@@ -75,15 +75,15 @@
 
 %--------- Consultas
 % Garantir que o id do utente associado à consulta existe
-+consulta(_,IdU,_,_) :: (solucoes(IdU, utente(IdU,_,_,_,_,_), R),
++consulta(_,_,IdU,_,_) :: (solucoes(IdU, utente(IdU,_,_,_,_,_), R),
                            comprimento(R, 1)).
 
 % Garantir que o id do serviço associado à consulta existe
-+consulta(_,_,IdS,_) :: (solucoes(IdS, servico(IdS,_,_,_), R),
++consulta(_,_,_,IdS,_) :: (solucoes(IdS, servico(IdS,_,_,_), R),
                            comprimento(R, 1)).
 
 % Garantir que o custo de cada consulta é válido (>= 0)
-+consulta(_,_,_,C) :: custoValido(C).
++consulta(_,_,_,_,C) :: custoValido(C).
 
 
 %--------- Médicos
@@ -129,7 +129,7 @@ novoUtente(Id,N,I,G,F,C) :- evolucao(utente(Id,N,I,G,F,C)).
 
 novoServico(Id,D,I,C) :- evolucao(servico(Id,D,I,C)).
 
-novaConsulta(D,IdU,IdS,C) :- evolucao(consulta(D,IdU,IdS,C)).
+novaConsulta(Id,D,IdU,IdS,C) :- evolucao(consulta(Id,D,IdU,IdS,C)).
 
 novoMedico(Id,N,I,G,IdS) :- evolucao(medico(Id,N,I,G,IdS)).
 
@@ -142,6 +142,6 @@ removeUtente(Id) :- utenteID(Id,[X|_]), involucao(X).
 
 removeServico(Id) :- servicoID(Id,[X|_]), involucao(X).
 
-removeConsulta(D,IdU,IdS,C) :- involucao(consulta(D,IdU,IdS,C)).
+removeConsulta(Id) :- consultaID(Id,[X|_]), involucao(X).
 
 removeMedico(Id) :- medicoID(Id,[X|_]), involucao(X).
