@@ -41,6 +41,10 @@
 % Garantir que a idade do utente é válida (>= 0)
 +utente(_,_,I,_) :: idadeValida(I).
 
+% Garantir que não é possível remover um utente com consultas
+-utente(Id,_,_,_) :: (solucoes(Id, consulta(_,Id,_,_), R),
+                     comprimento(R, 0)).
+
 
 %--------- Serviços
 % Garantir que o id de cada serviço é único
@@ -51,6 +55,9 @@
 +servico(Id,D,I,C) :: (solucoes((D,I,C), servico(_,D,I,C), R),
                       comprimento(R, 1)).
 
+% Garantir que não é possível remover um serviço associado a consultas
+-servico(Id,_,_,_) :: (solucoes(Id, consulta(_,_,Id,_), R),
+                       comprimento(R, 0)).
 
 %--------- Consultas
 % Garantir que o id do utente associado à consulta existe
@@ -79,11 +86,8 @@ novaConsulta(D,IdU,IdS,C) :- evolucao(consulta(D,IdU,IdS,C)).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Remover utentes, serviços e consultas
 
-removeUtente(Id) :- retract(utente(Id,_,_,_)),
-                    retract(consulta(_,Id,_,_)).
+removeUtente(Id) :- utenteID(Id,[X|_]), involucao(X).
 
-removeServico(Id) :- retract(servico(Id,_,_,_)),
-                     retract(consulta(_,_,Id,_)).
+removeServico(Id) :- servicoID(Id,[X|_]), involucao(X).
 
-removeConsulta(IdU,IdS) :- retract(consulta(_,IdU,IdS,_)).
-
+removeConsulta(D,IdU,IdS,C) :- involucao(consulta(D,IdU,IdS,C)).

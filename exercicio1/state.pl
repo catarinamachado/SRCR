@@ -3,12 +3,16 @@ utente(1,'Carlos',2,'Porto').
 utente(2,'Joao',20,'Braga').
 utente(3,'Vilaca',20,'Braga').
 utente(4,'Catarina',20,'Braga').
+utente(5,'Eva',0,'Braga').
+utente(6,'Maria Jose',56,'Guimarães').
 
 % serviço: #IdServ,Descrição,Instituição,Cidade -> {V,F}
 servico(1,'Pediatria','Hospital Santa Maria','Porto').
 servico(2,'Ortopedia','Hospital de Braga','Braga').
 servico(3,'Oftomologia','Hospital Santa Maria','Porto').
 servico(4,'Cardiologia','Hospital de Braga','Braga').
+servico(5,'Cirurgia Geral','Hospital Egas Moniz','Lisboa').
+servico(6,'Estomatologia','Hospital Egas Moniz','Lisboa').
 
 % consulta: Data,#IdUt,#IdServ,Custo -> {V,F}
 consulta('01-01-2010',1,1,10).
