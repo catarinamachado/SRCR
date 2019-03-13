@@ -46,3 +46,7 @@ eliminaRepAux([X|XS],Acc,R) :- eliminaRepAux(XS,[X|Acc],R).
 % Somatório
 soma([],0).
 soma([X|XS],Total) :- soma(XS, Acumulado), Total is X + Acumulado.
+
+% Concatenar 2 listas
+concat([], R, R).
+concat([X|XS1], R, [X|XS2]) :- concat(XS1, R, XS2).
