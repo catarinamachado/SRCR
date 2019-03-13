@@ -16,6 +16,7 @@
 :- dynamic utente/4.
 :- dynamic servico/4.
 :- dynamic consulta/4.
+:- dynamic medico/5.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Carregar predicados do ficheiro no qual é guardado o estado
@@ -71,17 +72,36 @@
 % Garantir que o custo de cada consulta é válido (>= 0)
 +consulta(_,_,_,C) :: custoValido(C).
 
+%--------- Médicos
+% Garantir que o id de cada medico é único
++medico(Id,N,I,G,IdS) :: (solucoes(Id, medico(Id,_,_,_,_), R),
+                         comprimento(R, 1)).
+
+% Garantir que médicos com ids diferentes têm diferente informação
++medico(Id,N,I,G,IdS) :: (solucoes((N,I,G,IdS), medico(_,N,I,G,IdS), R),
+                         comprimento(R, 1)).
+
+% Garantir que a idade do médico é válida (>= 0)
++medico(_,_,I,_,_) :: idadeValida(I).
+
+% Garantir que o género do médico é 'M' ou 'F'
++medico(_,_,_,G,_) :: generoValido(G).
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Registar utentes, serviços e consultas
+% Registar utentes, serviços, consultas e médicos
 
 idadeValida(I) :- I >= 0.
 custoValido(C) :- C >= 0.
+generoValido('M').
+generoValido('F').
 
 novoUtente(Id,N,I,C) :- evolucao(utente(Id,N,I,C)).
 
 novoServico(Id,D,I,C) :- evolucao(servico(Id,D,I,C)).
 
 novaConsulta(D,IdU,IdS,C) :- evolucao(consulta(D,IdU,IdS,C)).
+
+novoMedico(Id,N,I,G,IdS) :- evolucao(medico(Id,N,I,G,IdS)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Remover utentes, serviços e consultas
