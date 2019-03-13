@@ -74,6 +74,10 @@
 
 
 %--------- Consultas
+% Garantir que o id de cada consulta é único
++consulta(Id,D,IdU,IdS,C) :: (solucoes(Id, consulta(Id,D,IdU,IdS,C), R),
+                              comprimento(R, 1)).
+
 % Garantir que o id do utente associado à consulta existe
 +consulta(_,_,IdU,_,_) :: (solucoes(IdU, utente(IdU,_,_,_,_,_), R),
                            comprimento(R, 1)).
