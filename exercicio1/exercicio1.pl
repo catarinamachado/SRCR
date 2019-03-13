@@ -104,10 +104,12 @@ novaConsulta(D,IdU,IdS,C) :- evolucao(consulta(D,IdU,IdS,C)).
 novoMedico(Id,N,I,G,IdS) :- evolucao(medico(Id,N,I,G,IdS)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Remover utentes, serviços e consultas
+% Remover utentes, serviços, consultas e médicos
 
 removeUtente(Id) :- utenteID(Id,[X|_]), involucao(X).
 
 removeServico(Id) :- servicoID(Id,[X|_]), involucao(X).
 
 removeConsulta(D,IdU,IdS,C) :- involucao(consulta(D,IdU,IdS,C)).
+
+removeMedico(Id) :- medicoID(Id,[X|_]), involucao(X).
