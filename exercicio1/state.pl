@@ -43,3 +43,10 @@ enfermeiro(1,'Soraia',27,'F',9).
 enfermeiro(2,'Jacinta',41,'F',10).
 enfermeiro(3,'Luisa',50,'F',11).
 enfermeiro(4,'Fabio',30,'M',9).
+
+% medEnfFamilia: #IdFamilia,#IdMedico,#IdEnfermeiro -> {V,F}
+medEnfFamilia(1,2,3).
+medEnfFamilia(2,1,2).
+medEnfFamilia(3,3,4).
+medEnfFamilia(4,4,1).
+medEnfFamilia(5,2,3).
