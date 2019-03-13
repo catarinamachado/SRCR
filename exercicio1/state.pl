@@ -21,16 +21,16 @@ servico(9,'Curativo','Hospital Egas Moniz','Lisboa').
 servico(10,'Vacina','Hospital de Braga','Braga').
 servico(11,'Preparar para exame','Hospital Santa Maria','Porto').
 
-% consulta: Data,#IdUt,#IdServ,Custo -> {V,F}
-consulta('01-01-2010',1,1,10).
-consulta('01-01-2010',1,1,10).
-consulta('01-01-2010',2,1,10).
-consulta('01-01-2010',2,1,10).
-consulta('01-01-2010',3,1,10).
-consulta('01-01-2010',1,3,10).
-consulta('01-01-2010',3,3,10).
-consulta('01-02-2010',4,2,20).
-consulta('01-03-2010',2,2,40).
+% consulta: #IdConsulta,Data,#IdUt,#IdServ,Custo -> {V,F}
+consulta(1,'01-01-2010',1,1,10).
+consulta(2,'01-01-2010',1,1,10).
+consulta(3,'01-01-2010',2,1,10).
+consulta(4,'01-01-2010',2,1,10).
+consulta(5,'01-01-2010',3,1,10).
+consulta(6,'01-01-2010',1,3,10).
+consulta(7,'01-01-2010',3,3,10).
+consulta(8,'01-02-2010',4,2,20).
+consulta(9,'01-03-2010',2,2,40).
 
 % medico: #IdMedico,Nome,Idade,Sexo,#IdServ -> {V,F}
 medico(1,'Josefa',47,'F',1).
