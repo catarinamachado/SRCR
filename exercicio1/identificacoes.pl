@@ -5,7 +5,7 @@ identificaInstituicoes(R) :- solucoes(I, servico(_,_,I,_), Tmp),
                              eliminaRepetidos(Tmp, R).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Identificar utentes/serviços/consultas por critérios de seleção;
+% Identificar utentes/serviços/consultas por critérios de seleção
 
 %--------- Utentes
 utenteID(Id, R) :- solucoes(utente(Id,N,I,C), utente(Id,N,I,C), R).
@@ -33,6 +33,17 @@ consultaIdUtente(IdU, R) :- solucoes(consulta(D,IdU,IdS,C), consulta(D,IdU,IdS,C
 consultaIdServico(IdS, R) :- solucoes(consulta(D,IdU,IdS,C), consulta(D,IdU,IdS,C), R).
 
 consultaCusto(C, R) :- solucoes(consulta(D,IdU,IdS,C), consulta(D,IdU,IdS,C), R).
+
+%--------- Médicos
+medicoID(Id, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
+
+medicoNome(N, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
+
+medicoIdade(I, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
+
+medicoGenero(G, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
+
+medicoIdServico(IdS, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Identificar os utentes de um serviço/instituição
