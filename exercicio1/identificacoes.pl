@@ -45,6 +45,17 @@ medicoGenero(G, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
 
 medicoIdServico(IdS, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
 
+%--------- Enfermeiros
+enfermeiroID(Id, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
+enfermeiroNome(N, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
+enfermeiroIdade(I, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
+enfermeiroGenero(G, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
+enfermeiroIdServico(IdS, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Identificar os utentes de um serviço/instituição
 
