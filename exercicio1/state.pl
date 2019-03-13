@@ -17,6 +17,9 @@ servico(5,'Cirurgia Geral','Hospital Egas Moniz','Lisboa').
 servico(6,'Estomatologia','Hospital Egas Moniz','Lisboa').
 servico(7,'Genética Médica','Hospital Pulido Valente','Lisboa').
 servico(8,'Medicina Nuclear','Hospital Pulido Valente','Lisboa').
+servico(9,'Curativo','Hospital Egas Moniz','Lisboa').
+servico(10,'Vacina','Hospital de Braga','Braga').
+servico(11,'Preparar para exame','Hospital Santa Maria','Porto').
 
 % consulta: Data,#IdUt,#IdServ,Custo -> {V,F}
 consulta('01-01-2010',1,1,10).
@@ -34,3 +37,9 @@ medico(1,'Josefa',47,'F',1).
 medico(2,'Manuel',29,'M',6).
 medico(3,'Gaspar',38,'M',4).
 medico(4,'Catia',43,'F',8).
+
+% enfermeiro: #IdEnfermeiro,Nome,Idade,Sexo,#IdServ -> {V,F}
+enfermeiro(1,'Soraia',27,'F',9).
+enfermeiro(2,'Jacinta',41,'F',10).
+enfermeiro(3,'Luisa',50,'F',11).
+enfermeiro(4,'Fabio',30,'M',9).
