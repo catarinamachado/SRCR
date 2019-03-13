@@ -24,7 +24,7 @@ saveMedico(Stream) :- medico(A,B,C,D,E),
     fail; true.
 
 saveEnfermeiro(Stream) :- enfermeiro(A,B,C,D,E),
-        write(Stream, 'medico('),write(Stream, A),write(Stream, ',\''),
+        write(Stream, 'enfermeiro('),write(Stream, A),write(Stream, ',\''),
         write(Stream, B), write(Stream, '\','), write(Stream, C),
         write(Stream, ',\''), write(Stream, D), write(Stream, '\','),
         write(Stream, E), write(Stream, ').\n'),
