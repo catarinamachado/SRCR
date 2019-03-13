@@ -8,13 +8,18 @@ identificaInstituicoes(R) :- solucoes(I, servico(_,_,I,_), Tmp),
 % Identificar utentes/serviços/consultas por critérios de seleção;
 
 %--------- Utentes
-utenteID(Id, R) :- solucoes(utente(Id,N,I,C), utente(Id,N,I,C), R).
+utenteID(Id, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
 
-utenteNome(N, R) :- solucoes(utente(Id,N,I,C), utente(Id,N,I,C), R).
+utenteNome(N, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
 
-utenteIdade(I, R) :- solucoes(utente(Id,N,I,C), utente(Id,N,I,C), R).
+utenteIdade(I, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
 
-utenteCidade(C, R) :- solucoes(utente(Id,N,I,C), utente(Id,N,I,C), R).
+utenteCidade(C, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
+
+utenteGenero(G, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
+
+utenteFamilia(F, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
+
 
 %--------- Serviços
 servicoID(Id,R) :- solucoes(servico(Id,D,I,C), servico(Id,D,I,C), R).
