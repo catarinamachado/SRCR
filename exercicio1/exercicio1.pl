@@ -13,7 +13,7 @@
 :- set_prolog_flag( unknown,fail ).
 
 :- op(900,xfy,'::').
-:- dynamic utente/4.
+:- dynamic utente/6.
 :- dynamic servico/4.
 :- dynamic consulta/4.
 :- dynamic medico/5.
@@ -33,19 +33,22 @@
 
 %--------- Utentes
 % Garantir que o id de cada utente é único
-+utente(Id,N,I,C) :: (solucoes(Id, utente(Id,_,_,_), R),
-                      comprimento(R, 1)).
++utente(Id,N,I,G,F,C) :: (solucoes(Id, utente(Id,_,_,_,_,_), R),
+                         comprimento(R, 1)).
 
 % Garantir que utentes com ids diferentes têm diferente informação
-+utente(Id,N,I,C) :: (solucoes((N,I,C), utente(_,N,I,C), R),
-                      comprimento(R, 1)).
++utente(Id,N,I,G,F,C) :: (solucoes((N,I,G,F,C), utente(_,N,I,G,F,C), R),
+                         comprimento(R, 1)).
 
 % Garantir que a idade do utente é válida (>= 0)
-+utente(_,_,I,_) :: idadeValida(I).
++utente(_,_,I,_,_,_) :: idadeValida(I).
+
+% Garantir que o género do utente é 'M' ou 'F'
++utente(_,_,_,G,_,_) :: generoValido(G).
 
 % Garantir que não é possível remover um utente com consultas
--utente(Id,_,_,_) :: (solucoes(Id, consulta(_,Id,_,_), R),
-                     comprimento(R, 0)).
+-utente(Id,_,_,_,_,_) :: (solucoes(Id, consulta(_,Id,_,_), R),
+                         comprimento(R, 0)).
 
 
 %--------- Serviços
@@ -69,9 +72,10 @@
 -servico(Id,_,_,_) :: (solucoes(Id, enfermeiro(_,_,_,_,IdS), R),
                        comprimento(R, 0)).
 
+
 %--------- Consultas
 % Garantir que o id do utente associado à consulta existe
-+consulta(_,IdU,_,_) :: (solucoes(IdU, utente(IdU,_,_,_), R),
++consulta(_,IdU,_,_) :: (solucoes(IdU, utente(IdU,_,_,_,_,_), R),
                            comprimento(R, 1)).
 
 % Garantir que o id do serviço associado à consulta existe
@@ -121,7 +125,7 @@ custoValido(C) :- C >= 0.
 generoValido('M').
 generoValido('F').
 
-novoUtente(Id,N,I,C) :- evolucao(utente(Id,N,I,C)).
+novoUtente(Id,N,I,G,F,C) :- evolucao(utente(Id,N,I,G,F,C)).
 
 novoServico(Id,D,I,C) :- evolucao(servico(Id,D,I,C)).
 

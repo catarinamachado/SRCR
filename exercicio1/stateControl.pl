@@ -1,7 +1,9 @@
-saveUtente(Stream) :- utente(A,B,C,D),
+saveUtente(Stream) :- utente(A,B,C,D,E,F),
         write(Stream, 'utente('),write(Stream, A),write(Stream, ',\''),
         write(Stream, B), write(Stream, '\','), write(Stream, C),
-        write(Stream, ',\''), write(Stream, D), write(Stream, '\').\n'),
+        write(Stream, ',\''), write(Stream, D), write(Stream, '\','),
+        write(Stream, E), write(Stream, ',\''),
+        write(Stream, F), write(Stream, '\').\n'),
     fail; true.
 
 saveServico(Stream) :- servico(A,B,C,D),
@@ -33,7 +35,7 @@ saveEnfermeiro(Stream) :- enfermeiro(A,B,C,D,E),
 
 saveState :-
     open('state.pl', write, Stream),
-    write(Stream, '% utente: #IdUt,Nome,Idade,Cidade -> {V,F}\n'),
+    write(Stream, '% utente: #IdUt,Nome,Idade,Genero,#IdFamilia,Cidade -> {V,F}\n'),
     saveUtente(Stream),
     write(Stream, '\n% serviço: #IdServ,Descrição,Instituição,Cidade -> {V,F}\n'),
     saveServico(Stream),

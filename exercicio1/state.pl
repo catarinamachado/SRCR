@@ -1,12 +1,12 @@
-% utente: #IdUt,Nome,Idade,Cidade -> {V,F}
-utente(1,'Carlos',2,'Porto').
-utente(2,'Joao',20,'Braga').
-utente(3,'Vilaca',20,'Braga').
-utente(4,'Catarina',20,'Braga').
-utente(5,'Eva',0,'Braga').
-utente(6,'Maria Jose',56,'Guimarães').
-utente(7,'Gustavo',28,'Lisboa').
-utente(8,'Helena',25,'Lisboa').
+% utente: #IdUt,Nome,Idade,Genero,#IdFamilia,Cidade -> {V,F}
+utente(1,'Carlos',2,'M',1,'Porto').
+utente(2,'Joao',20,'M',1,'Braga').
+utente(3,'Vilaca',20,'M',2,'Braga').
+utente(4,'Catarina',20,'F',3,'Braga').
+utente(5,'Eva',0,'F',3,'Braga').
+utente(6,'Maria Jose',56,'F',1,'Guimaraes').
+utente(7,'Gustavo',28,'M',2,'Lisboa').
+utente(8,'Helena',25,'F',5,'Lisboa').
 
 % serviço: #IdServ,Descrição,Instituição,Cidade -> {V,F}
 servico(1,'Pediatria','Hospital Santa Maria','Porto').
