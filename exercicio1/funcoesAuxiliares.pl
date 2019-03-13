@@ -10,10 +10,10 @@ nao(Q).
 
 % Encontra todas as soluções
 solucoes(X, XS, R) :- XS, assert(tmp(X)), fail.
-solucoes(X, XS, R) :- construir([], R).
+solucoes(X, XS, R) :- solucoesAux([], R).
 
-construir(L, R) :- retract(tmp(X)), !, construir([X|L], R).
-construir(R, R).
+solucoesAux(L, R) :- retract(tmp(X)), !, solucoesAux([X|L], R).
+solucoesAux(R, R).
 
 % Comprimento de uma lista
 comprimento([], 0).
@@ -23,6 +23,10 @@ comprimento([_|XS], R) :- comprimento(XS, S), R is 1 + S.
 insercao(Q) :- assert(Q).
 insercao(Q) :- retract(Q), insucesso.
 
+% Remoção de conhecimento
+remocao(Q) :- retract(Q).
+remocao(Q) :- assert(Q), insucesso.
+
 % Testa se todos os meta-predicados são verdadeiros
 teste([]).
 teste([I|L]) :- I, teste(L).
@@ -31,6 +35,12 @@ teste([I|L]) :- I, teste(L).
 evolucao(T) :- solucoes(I, +T::I, Linv),
                insercao(T),
                teste(Linv).
+
+% Retira conhecimento da base de conhecimento
+involucao(T) :- solucoes(I, -T::I, Linv),
+                retract(T),
+                teste(Linv).
+involucao(T) :- assert(T), insucesso.
 
 % Averigua se elemento pertence a uma lista
 pertence(A,[A|XS]).
