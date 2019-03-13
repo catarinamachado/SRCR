@@ -60,6 +60,11 @@
 -servico(Id,_,_,_) :: (solucoes(Id, consulta(_,_,Id,_), R),
                        comprimento(R, 0)).
 
+% Garantir que não é possível remover um serviço associado a um médico
+-servico(Id,_,_,_) :: (solucoes(Id, medico(_,_,_,_,IdS), R),
+                       comprimento(R, 0)).
+
+
 %--------- Consultas
 % Garantir que o id do utente associado à consulta existe
 +consulta(_,IdU,_,_) :: (solucoes(IdU, utente(IdU,_,_,_), R),
@@ -71,6 +76,7 @@
 
 % Garantir que o custo de cada consulta é válido (>= 0)
 +consulta(_,_,_,C) :: custoValido(C).
+
 
 %--------- Médicos
 % Garantir que o id de cada medico é único
