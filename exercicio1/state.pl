@@ -1,4 +1,4 @@
-% utente: #IdUt,Nome,Idade,Sexo,#IdFamilia,Cidade -> {V,F}
+% utente: #IdUt,Nome,Idade,Genero,#IdFamilia,Cidade -> {V,F}
 utente(1,'Carlos',2,'M',1,'Porto').
 utente(2,'Joao',20,'M',1,'Braga').
 utente(3,'Vilaca',20,'M',2,'Braga').
@@ -24,9 +24,7 @@ consulta('01-01-2010',1,1,10).
 consulta('01-01-2010',2,1,10).
 consulta('01-01-2010',2,1,10).
 consulta('01-01-2010',3,1,10).
-
 consulta('01-01-2010',1,3,10).
 consulta('01-01-2010',3,3,10).
-
 consulta('01-02-2010',4,2,20).
 consulta('01-03-2010',2,2,40).
