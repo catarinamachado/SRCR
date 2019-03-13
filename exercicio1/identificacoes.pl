@@ -56,3 +56,20 @@ servicosParaUtentesServicos([servico(Id,D,Ins,C)|XS], R) :-
     utentesServico(Id,I2),
     concat(I1, I2, I3),
     eliminaRepetidos(I3, R).
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Identificar serviços realizados por utente/instituição/cidade;
+
+servicosPorUtente(IdUtente, R) :-
+    findall(IdS, consulta(D,IdUtente,IdS,C), I1),
+    eliminaRepetidos(I1, I2),
+    idServicoParaServico(I2, R).
+
+idServicoParaServico([],[]).
+idServicoParaServico([X|XS], [U|I]) :- idServicoParaServico(XS, I), servicoID(X,[U]).
+
+servicosPorInstituicao(IdI, R) :-
+    findall(servico(IdS,D,IdI,C), servico(IdS,D,IdI,C), R).
+
+servicosPorCidade(Cidade, R) :-
+    findall(servico(IdS,D,IdI,Cidade), servico(IdS,D,IdI,Cidade), R).
