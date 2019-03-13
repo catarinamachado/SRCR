@@ -9,7 +9,11 @@ nao(Q) :- Q, insucesso.
 nao(Q).
 
 % Encontra todas as soluções
-solucoes(X, XS, L) :- findall(X, XS, L).
+solucoes(X, XS, R) :- XS, assert(tmp(X)), fail.
+solucoes(X, XS, R) :- construir([], R).
+
+construir(L, R) :- retract(tmp(X)), !, construir([X|L], R).
+construir(R, R).
 
 % Comprimento de uma lista
 comprimento([], 0).
@@ -42,7 +46,3 @@ eliminaRepAux([X|XS],Acc,R) :- eliminaRepAux(XS,[X|Acc],R).
 % Somatório
 soma([],0).
 soma([X|XS],Total) :- soma(XS, Acumulado), Total is X + Acumulado.
-
-% Concatenar 2 listas
-concat([], R, R).
-concat([X|XS1], R, [X|XS2]) :- concat(XS1, R, XS2).
