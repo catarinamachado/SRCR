@@ -22,3 +22,8 @@ eliminaRepetidos(X, R) :- eliminaRepAux(X,[],R).
 eliminaRepAux([],Acc,Acc).
 eliminaRepAux([X|XS],Acc,R) :- pertence(X,Acc), eliminaRepAux(XS,Acc,R).
 eliminaRepAux([X|XS],Acc,R) :- eliminaRepAux(XS,[X|Acc],R).
+
+% Concatenar 2 listas
+concat([], R, R).
+concat([X|XS1], R, [X|XS2]) :- concat(XS1, R, XS2).
+
