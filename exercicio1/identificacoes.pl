@@ -5,7 +5,7 @@ identificaInstituicoes(R) :- solucoes(I, servico(_,_,I,_), Tmp),
                              eliminaRepetidos(Tmp, R).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Identificar utentes/serviços/consultas por critérios de seleção;
+% Identificar utentes/serviços/consultas por critérios de seleção
 
 %--------- Utentes
 utenteID(Id, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
@@ -39,11 +39,33 @@ consultaIdServico(IdS, R) :- solucoes(consulta(D,IdU,IdS,C), consulta(D,IdU,IdS,
 
 consultaCusto(C, R) :- solucoes(consulta(D,IdU,IdS,C), consulta(D,IdU,IdS,C), R).
 
+%--------- Médicos
+medicoID(Id, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
+
+medicoNome(N, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
+
+medicoIdade(I, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
+
+medicoGenero(G, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
+
+medicoIdServico(IdS, R) :- solucoes(medico(Id,N,I,G,IdS), medico(Id,N,I,G,IdS), R).
+
+%--------- Enfermeiros
+enfermeiroID(Id, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
+enfermeiroNome(N, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
+enfermeiroIdade(I, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
+enfermeiroGenero(G, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
+enfermeiroIdServico(IdS, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Identificar os utentes de um serviço/instituição
 
 utentesServico(IdS,R) :-
-    findall(IdU, consulta(D,IdU,IdS,C), I1),
+    solucoes(IdU, consulta(D,IdU,IdS,C), I1),
     eliminaRepetidos(I1,I2),
     idUtenteParaUtente(I2,R).
 
@@ -61,3 +83,20 @@ servicosParaUtentesServicos([servico(Id,D,Ins,C)|XS], R) :-
     utentesServico(Id,I2),
     concat(I1, I2, I3),
     eliminaRepetidos(I3, R).
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Identificar serviços realizados por utente/instituição/cidade;
+
+servicosPorUtente(IdUtente, R) :-
+    solucoes(IdS, consulta(D,IdUtente,IdS,C), I1),
+    eliminaRepetidos(I1, I2),
+    idServicoParaServico(I2, R).
+
+idServicoParaServico([],[]).
+idServicoParaServico([X|XS], [U|I]) :- idServicoParaServico(XS, I), servicoID(X,[U]).
+
+servicosPorInstituicao(IdI, R) :-
+    solucoes(servico(IdS,D,IdI,C), servico(IdS,D,IdI,C), R).
+
+servicosPorCidade(Cidade, R) :-
+    solucoes(servico(IdS,D,IdI,Cidade), servico(IdS,D,IdI,Cidade), R).
