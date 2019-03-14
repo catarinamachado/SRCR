@@ -24,13 +24,14 @@ servico(11,'Preparar para exame','Hospital Santa Maria','Porto').
 % consulta: #IdConsulta,Data,#IdUt,#IdServ,Custo -> {V,F}
 consulta(1,'01-01-2018',1,1,10).
 consulta(2,'23-05-2016',1,1,10).
-consulta(3,'05-02-2019',2,1,10).
+consulta(3,'05-02-2019',2,4,10).
 consulta(4,'13-12-2018',2,1,10).
-consulta(5,'09-09-2017',3,1,10).
+consulta(5,'09-09-2017',3,5,10).
 consulta(6,'26-10-2016',1,3,10).
 consulta(7,'29-02-2017',3,3,10).
-consulta(8,'10-03-2016',4,2,20).
+consulta(8,'10-03-2016',4,6,20).
 consulta(9,'02-04-2017',2,2,40).
+consulta(10,'02-04-2017',2,7,40).
 
 % medico: #IdMedico,Nome,Idade,Sexo,#IdServ -> {V,F}
 medico(1,'Josefa',47,'F',1).
@@ -51,7 +52,7 @@ medEnfFamilia(3,3,4).
 medEnfFamilia(4,4,1).
 
 % exame: #IdConsulta,Descrição -> {V,F}
-exame(4,'Prova de Esforco').
+exame(3,'Prova de Esforco').
 exame(5,'Biopsia').
-exame(6,'Endoscopia').
-exame(7,'Exame de Sangue').
+exame(8,'Endoscopia').
+exame(10,'Exame de Sangue').
