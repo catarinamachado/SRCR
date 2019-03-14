@@ -102,3 +102,21 @@ servicosPorInstituicao(IdI, R) :-
 
 servicosPorCidade(Cidade, R) :-
     solucoes(servico(IdS,D,IdI,Cidade), servico(IdS,D,IdI,Cidade), R).
+
+%--------------------------------- - - - - - - - - - -  -  -  -  -   -
+% Identificar serviços prestados por instituição/cidade/datas/custo
+
+consultasPorInstituicao(Instituicao, Resultado) :-
+    servicosPorInstituicao(Instituicao, I1),
+    servicosParaConsultasServicos(I1, Resultado).
+
+consultasPorCidade(Cidade, Resultado) :-
+    servicosPorCidade(Cidade, I1),
+    servicosParaConsultasServicos(I1, Resultado).
+
+servicosParaConsultasServicos([],[]).
+servicosParaConsultasServicos([servico(Id,D,Ins,C)|XS], R) :-
+    servicosParaConsultasServicos(XS, I1),
+    consultaIdServico(Id,I2),
+    concat(I1, I2, I3),
+    eliminaRepetidos(I3, R).
