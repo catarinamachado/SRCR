@@ -39,6 +39,11 @@ saveMedEnfFamilia(Stream) :- medEnfFamilia(A,B,C),
         write(Stream, ').\n'),
     fail; true.
 
+saveExame(Stream) :- exame(A,B),
+        write(Stream, 'exame('),write(Stream, A), write(Stream, ',\''),
+        write(Stream, B), write(Stream, ').\n'),
+    fail; true.
+
 saveState :-
     open('state.pl', write, Stream),
     write(Stream, '% utente: #IdUt,Nome,Idade,Genero,#IdFamilia,Cidade -> {V,F}\n'),
@@ -53,4 +58,6 @@ saveState :-
     saveEnfermeiro(Stream),
     write(Stream, '\n% medEnfFamilia: #IdFamilia,#IdMedico,#IdEnfermeiro -> {V,F}\n'),
     saveMedEnfFamilia(Stream),
+    write(Stream, '\n% exame: #IdConsulta,Descrição -> {V,F}\n'),
+    saveExame(Stream),
     close(Stream).
