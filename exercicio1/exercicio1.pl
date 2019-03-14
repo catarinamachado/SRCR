@@ -19,6 +19,7 @@
 :- dynamic medico/5.
 :- dynamic enfermeiro/5.
 :- dynamic medEnfFamilia/3.
+:- dynamic exame/2.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Carregar predicados do ficheiro no qual é guardado o estado
@@ -147,8 +148,8 @@
                              comprimento(R, 1)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Registar utentes, serviços, consultas, médicos, enfermeiros
-% e médicos e enfermeiros de família
+% Registar utentes, serviços, consultas, médicos, enfermeiros,
+% médicos e enfermeiros da família e exames
 
 idadeValida(I) :- I >= 0.
 custoValido(C) :- C >= 0.
@@ -167,9 +168,11 @@ novoEnfermeiro(Id,N,I,G,IdS) :- evolucao(enfermeiro(Id,N,I,G,IdS)).
 
 novoMedEnfFamilia(IdFam,IdMed,IdEnf) :- evolucao(medEnfFamilia(IdFam,IdMed,IdEnf)).
 
+novoExame(IdConsulta,D) :- evolucao(exame(IdConsulta,D)).
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Remover utentes, serviços, consultas, médicos, enfermeiros
-% e médicos e enfermeiros de família
+% Remover utentes, serviços, consultas, médicos, enfermeiros,
+% médicos e enfermeiros da família e exames
 
 removeUtente(Id) :- utenteID(Id,[X|_]), involucao(X).
 
@@ -180,3 +183,5 @@ removeConsulta(Id) :- consultaID(Id,[X|_]), involucao(X).
 removeMedico(Id) :- medicoID(Id,[X|_]), involucao(X).
 
 removeMedEnfFamilia(IdFam,IdMed,IdEnf) :- involucao(medEnfFamilia(IdFam,IdMed,IdEnf)).
+
+removeExame(IdConsulta,D) :- involucao(exame(IdConsulta,D)).
