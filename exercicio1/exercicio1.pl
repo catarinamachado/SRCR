@@ -111,6 +111,10 @@
 % Garantir que o género do médico é 'M' ou 'F'
 +medico(_,_,_,G,_) :: generoValido(G).
 
+% Garantir que não é possível remover um médico de uma familia
+-medico(Id,_,_,_,_) :: (solucoes(Id, medEnfFamilia(_,Id,_), R),
+                        comprimento(R, 0)).
+
 
 %--------- Enfermeiros
 % Garantir que o id de cada enfermeiro é único
