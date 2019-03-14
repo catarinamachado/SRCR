@@ -147,6 +147,12 @@
 +medEnfFamilia(_,_,IdEnf) :: (solucoes(IdEnf, enfermeiro(IdEnf,_,_,_,_), R),
                              comprimento(R, 1)).
 
+
+%--------- Exames
+% Garantir que o id da consulta associada existe
++exame(IdConsulta,_) :: (solucoes(IdConsulta, consulta(IdConsulta,_,_,_,_), R),
+                         comprimento(R, 1)).
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Registar utentes, serviços, consultas, médicos, enfermeiros,
 % médicos e enfermeiros da família e exames
