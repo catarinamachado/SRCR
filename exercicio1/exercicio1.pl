@@ -176,3 +176,5 @@ removeServico(Id) :- servicoID(Id,[X|_]), involucao(X).
 removeConsulta(Id) :- consultaID(Id,[X|_]), involucao(X).
 
 removeMedico(Id) :- medicoID(Id,[X|_]), involucao(X).
+
+removeMedEnfFamilia(IdFam,IdMed,IdEnf) :- involucao(medEnfFamilia(IdFam,IdMed,IdEnf)).
