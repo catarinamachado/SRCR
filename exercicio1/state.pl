@@ -1,4 +1,4 @@
-% utente: #IdUt,Nome,Idade,Genero,#IdFamilia,Cidade -> {V,F}
+% utente: #IdUt,Nome,Idade,Género,#IdFamilia,Cidade -> {V,F}
 utente(1,'Carlos',2,'M',1,'Porto').
 utente(2,'Joao',20,'M',1,'Braga').
 utente(3,'Vilaca',20,'M',2,'Braga').
@@ -33,13 +33,13 @@ consulta(8,'10-03-2016',4,6,20).
 consulta(9,'02-04-2017',2,2,40).
 consulta(10,'02-04-2017',2,7,40).
 
-% medico: #IdMedico,Nome,Idade,Sexo,#IdServ -> {V,F}
+% medico: #IdMedico,Nome,Idade,Género,#IdServ -> {V,F}
 medico(1,'Josefa',47,'F',1).
 medico(2,'Manuel',29,'M',6).
 medico(3,'Gaspar',38,'M',4).
 medico(4,'Catia',43,'F',8).
 
-% enfermeiro: #IdEnfermeiro,Nome,Idade,Sexo,#IdServ -> {V,F}
+% enfermeiro: #IdEnfermeiro,Nome,Idade,Género,#IdServ -> {V,F}
 enfermeiro(1,'Soraia',27,'F',9).
 enfermeiro(2,'Jacinta',41,'F',10).
 enfermeiro(3,'Luisa',50,'F',11).
