@@ -18,6 +18,7 @@
 :- dynamic consulta/5.
 :- dynamic medico/5.
 :- dynamic enfermeiro/5.
+:- dynamic medEnfFamilia/3.
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Carregar predicados do ficheiro no qual é guardado o estado
@@ -33,11 +34,11 @@
 
 %--------- Utentes
 % Garantir que o id de cada utente é único
-+utente(Id,N,I,G,F,C) :: (solucoes(Id, utente(Id,_,_,_,_,_), R),
++utente(Id,N,I,G,IdF,C) :: (solucoes(Id, utente(Id,_,_,_,_,_), R),
                          comprimento(R, 1)).
 
 % Garantir que utentes com ids diferentes têm diferente informação
-+utente(Id,N,I,G,F,C) :: (solucoes((N,I,G,F,C), utente(_,N,I,G,F,C), R),
++utente(Id,N,I,G,IdF,C) :: (solucoes((N,I,G,IdF,C), utente(_,N,I,G,IdF,C), R),
                          comprimento(R, 1)).
 
 % Garantir que a idade do utente é válida (>= 0)
@@ -121,6 +122,30 @@
 % Garantir que o género do enfermeiro é 'M' ou 'F'
 +enfermeiro(_,_,_,G,_) :: generoValido(G).
 
+
+%--------- Médico e Enfermeiro de Famílias
+% Garantir que a familia ainda não tem nenhum médico associado
++medEnfFamilia(IdFam,IdMed,_) ::
+        (solucoes((IdFam,IdMed), medEnfFamilia(IdFam,IdMed,_), R),
+         comprimento(R, 1)).
+
+% Garantir que a familia ainda não tem nenhum enfermeiro associado
++medEnfFamilia(IdFam,_,IdEnf) ::
+        (solucoes((IdFam,IdEnf), medEnfFamilia(IdFam,_,IdEnf), R),
+         comprimento(R, 1)).
+
+% Garantir que o id da familia associada existe
++medEnfFamilia(IdFam,_,_) :: (solucoes(IdFam, utente(_,_,_,_,IdFam,_), R),
+                           comprimento(R, 1)).
+
+% Garantir que o id do medico associado existe
++medEnfFamilia(_,IdMed,_) :: (solucoes(IdMed, medico(IdMed,_,_,_,_), R),
+                             comprimento(R, 1)).
+
+% Garantir que o id do enfermeiro associado existe
++medEnfFamilia(_,_,IdEnf) :: (solucoes(IdEnf, enfermeiro(IdEnf,_,_,_,_), R),
+                             comprimento(R, 1)).
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Registar utentes, serviços, consultas, médicos e enfermeiros
 
@@ -129,7 +154,7 @@ custoValido(C) :- C >= 0.
 generoValido('M').
 generoValido('F').
 
-novoUtente(Id,N,I,G,F,C) :- evolucao(utente(Id,N,I,G,F,C)).
+novoUtente(Id,N,I,G,IdF,C) :- evolucao(utente(Id,N,I,G,IdF,C)).
 
 novoServico(Id,D,I,C) :- evolucao(servico(Id,D,I,C)).
 
@@ -138,6 +163,8 @@ novaConsulta(Id,D,IdU,IdS,C) :- evolucao(consulta(Id,D,IdU,IdS,C)).
 novoMedico(Id,N,I,G,IdS) :- evolucao(medico(Id,N,I,G,IdS)).
 
 novoEnfermeiro(Id,N,I,G,IdS) :- evolucao(enfermeiro(Id,N,I,G,IdS)).
+
+novoMedEnfFamilia(IdFam,IdMed,IdEnf) :- evolucao(medEnfFamilia(IdFam,IdMed,IdEnf)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Remover utentes, serviços, consultas e médicos
@@ -149,3 +176,5 @@ removeServico(Id) :- servicoID(Id,[X|_]), involucao(X).
 removeConsulta(Id) :- consultaID(Id,[X|_]), involucao(X).
 
 removeMedico(Id) :- medicoID(Id,[X|_]), involucao(X).
+
+removeMedEnfFamilia(IdFam,IdMed,IdEnf) :- involucao(medEnfFamilia(IdFam,IdMed,IdEnf)).

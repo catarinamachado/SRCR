@@ -35,9 +35,8 @@ evolucao(T) :- solucoes(I, +T::I, Linv),
 
 % Retira conhecimento da base de conhecimento
 involucao(T) :- solucoes(I, -T::I, Linv),
-                retract(T),
+                remocao(T),
                 teste(Linv).
-involucao(T) :- assert(T), !, fail.
 
 % Averigua se elemento pertence a uma lista
 pertence(A,[A|XS]).

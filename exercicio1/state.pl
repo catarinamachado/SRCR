@@ -15,7 +15,7 @@ servico(3,'Oftomologia','Hospital Santa Maria','Porto').
 servico(4,'Cardiologia','Hospital de Braga','Braga').
 servico(5,'Cirurgia Geral','Hospital Egas Moniz','Lisboa').
 servico(6,'Estomatologia','Hospital Egas Moniz','Lisboa').
-servico(7,'Genética Médica','Hospital Pulido Valente','Lisboa').
+servico(7,'Genetica Medica','Hospital Pulido Valente','Lisboa').
 servico(8,'Medicina Nuclear','Hospital Pulido Valente','Lisboa').
 servico(9,'Curativo','Hospital Egas Moniz','Lisboa').
 servico(10,'Vacina','Hospital de Braga','Braga').
@@ -43,3 +43,9 @@ enfermeiro(1,'Soraia',27,'F',9).
 enfermeiro(2,'Jacinta',41,'F',10).
 enfermeiro(3,'Luisa',50,'F',11).
 enfermeiro(4,'Fabio',30,'M',9).
+
+% medEnfFamilia: #IdFamilia,#IdMedico,#IdEnfermeiro -> {V,F}
+medEnfFamilia(1,2,3).
+medEnfFamilia(2,1,2).
+medEnfFamilia(3,3,4).
+medEnfFamilia(4,4,1).
