@@ -51,6 +51,6 @@ medEnfFamilia(3,3,4).
 medEnfFamilia(4,4,1).
 
 % exame: #IdConsulta,Descrição -> {V,F}
-exame(4, 'Prova de Esforço').
-exame(5, 'Biópsia').
-exame(6, 'Endoscopia‎').
+exame(4,'Prova de Esforco').
+exame(5,'Biopsia').
+exame(6,'Endoscopia').
