@@ -56,3 +56,30 @@ soma([X|XS],Total) :- soma(XS, Acumulado), Total is X + Acumulado.
 % Concatenar 2 listas
 concat([], R, R).
 concat([X|XS1], R, [X|XS2]) :- concat(XS1, R, XS2).
+
+% Merge Sort
+
+splitlist(L, [], L, 0).
+splitlist([H|T], [H|A], B, N) :- Nminus1 is N-1, splitlist(T, A, B, Nminus1).
+
+halfhalf(L, A, B) :- length(L, Len), Half is Len//2, splitlist(L, A, B, Half).
+
+merge(A, [], A).
+merge([], B, B).
+merge([(X0,X1)|Ta], [(Y0,Y1)|Tb], R) :- X1 > Y1, merge(Ta, [(Y0,Y1)|Tb], M), R = [(X0,X1)|M].
+merge([(X0,X1)|Ta], [(Y0,Y1)|Tb], R) :- X1 =< Y1, merge(Tb, [(X0,X1)|Ta], M), R = [(Y0,Y1)|M].
+
+mergeSortKeyValuePairASC([], []).
+mergeSortKeyValuePairASC([E], [E]).
+mergeSortKeyValuePairASC([(X0,X1), (Y0,Y1)], [(X0,X1), (Y0,Y1)]) :- X1 > Y1.
+mergeSortKeyValuePairASC([(X0,X1), (Y0,Y1)], [(Y0,Y1), (X0,X1)]) :- X1 =< Y1.
+mergeSortKeyValuePairASC(L, R) :-
+    halfhalf(L, A, B),
+    mergeSortKeyValuePairASC(A, Asort),
+    mergeSortKeyValuePairASC(B, Bsort),
+    merge(Asort, Bsort, R).
+
+% Pega nos N primeiros de uma lista
+
+take(Lista,0,[]).
+take([X|XS], N1, [X|I]) :- N0 is N1-1, take(XS,N0,I).
