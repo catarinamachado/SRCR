@@ -1,11 +1,8 @@
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Funções Auxiliares
 
-% Insucesso
-insucesso :- !, fail.
-
 % Calcula o valor de verdade contrário à resposta à questão
-nao(Q) :- Q, insucesso.
+nao(Q) :- Q, !, fail.
 nao(Q).
 
 % Encontra todas as soluções
@@ -21,11 +18,11 @@ comprimento([_|XS], R) :- comprimento(XS, S), R is 1 + S.
 
 % Inserção de conhecimento
 insercao(Q) :- assert(Q).
-insercao(Q) :- retract(Q), insucesso.
+insercao(Q) :- retract(Q), !, fail.
 
 % Remoção de conhecimento
 remocao(Q) :- retract(Q).
-remocao(Q) :- assert(Q), insucesso.
+remocao(Q) :- assert(Q), !, fail.
 
 % Testa se todos os meta-predicados são verdadeiros
 teste([]).
@@ -40,7 +37,7 @@ evolucao(T) :- solucoes(I, +T::I, Linv),
 involucao(T) :- solucoes(I, -T::I, Linv),
                 retract(T),
                 teste(Linv).
-involucao(T) :- assert(T), insucesso.
+involucao(T) :- assert(T), !, fail.
 
 % Averigua se elemento pertence a uma lista
 pertence(A,[A|XS]).
