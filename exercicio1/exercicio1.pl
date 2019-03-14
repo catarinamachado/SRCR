@@ -52,6 +52,7 @@
 -utente(Id,_,_,_,_,_) :: (solucoes(Id, consulta(_,_,Id,_,_), R),
                          comprimento(R, 0)).
 
+% Não posso eliminar um utente de uma familia que tenha medico e enfermeiro de familia
 
 %--------- Serviços
 % Garantir que o id de cada serviço é único
@@ -125,6 +126,10 @@
 
 % Garantir que o género do enfermeiro é 'M' ou 'F'
 +enfermeiro(_,_,_,G,_) :: generoValido(G).
+
+% Garantir que não é possível remover um enfermeiro de uma familia
+-enfermeiro(Id,_,_,_,_) :: (solucoes(Id, medEnfFamilia(_,_,Id), R),
+                            comprimento(R, 0)).
 
 
 %--------- Médico e Enfermeiro de Famílias
