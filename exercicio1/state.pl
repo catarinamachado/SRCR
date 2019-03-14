@@ -54,3 +54,4 @@ medEnfFamilia(4,4,1).
 exame(4,'Prova de Esforco').
 exame(5,'Biopsia').
 exame(6,'Endoscopia').
+exame(7,'Exame de Sangue').
