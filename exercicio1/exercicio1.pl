@@ -147,7 +147,8 @@
                              comprimento(R, 1)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Registar utentes, serviços, consultas, médicos e enfermeiros
+% Registar utentes, serviços, consultas, médicos, enfermeiros
+% e médicos e enfermeiros de família
 
 idadeValida(I) :- I >= 0.
 custoValido(C) :- C >= 0.
@@ -167,7 +168,8 @@ novoEnfermeiro(Id,N,I,G,IdS) :- evolucao(enfermeiro(Id,N,I,G,IdS)).
 novoMedEnfFamilia(IdFam,IdMed,IdEnf) :- evolucao(medEnfFamilia(IdFam,IdMed,IdEnf)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Remover utentes, serviços, consultas e médicos
+% Remover utentes, serviços, consultas, médicos, enfermeiros
+% e médicos e enfermeiros de família
 
 removeUtente(Id) :- utenteID(Id,[X|_]), involucao(X).
 
