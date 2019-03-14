@@ -40,7 +40,7 @@
 
 % Garantir que utentes com ids diferentes têm diferente informação
 +utente(Id,N,I,G,IdF,C) :: (solucoes((N,I,G,IdF,C), utente(_,N,I,G,IdF,C), R),
-                         comprimento(R, 1)).
+                            comprimento(R, 1)).
 
 % Garantir que a idade do utente é válida (>= 0)
 +utente(_,_,I,_,_,_) :: idadeValida(I).
@@ -52,7 +52,16 @@
 -utente(Id,_,_,_,_,_) :: (solucoes(Id, consulta(_,_,Id,_,_), R),
                          comprimento(R, 0)).
 
-% Não posso eliminar um utente de uma familia que tenha medico e enfermeiro de familia
+% Garantir que não posso eliminar um utente se só restar ele na sua família
+% e houver associado à sua família um medico e enfermeiro de familia
+-utente(_,_,_,_,IdF,_) :: ((solucoes(IdF, utente(_,_,_,_,IdF,_), R),
+                            comprimento(R, N), N >= 1,
+                            solucoes(IdF, medEnfFamilia(IdF,_,_), S),
+                            comprimento(S, 1));
+                            (solucoes(IdF, utente(_,_,_,_,IdF,_), R),
+                            comprimento(R, N), N >= 0,
+                            solucoes(IdF, medEnfFamilia(IdF,_,_), S),
+                            comprimento(S, 0))).
 
 %--------- Serviços
 % Garantir que o id de cada serviço é único
@@ -95,6 +104,7 @@
 % Garantir que não é possível remover uma consulta associado a um exame
 -consulta(Id,_,_,_,_) :: (solucoes(Id, exame(Id,_), R),
                          comprimento(R, 0)).
+
 
 %--------- Médicos
 % Garantir que o id de cada médico é único
@@ -149,7 +159,7 @@
 
 % Garantir que o id da familia associada existe
 +medEnfFamilia(IdFam,_,_) :: (solucoes(IdFam, utente(_,_,_,_,IdFam,_), R),
-                           comprimento(R, 1)).
+                             comprimento(R, 1)).
 
 % Garantir que o id do medico associado existe
 +medEnfFamilia(_,IdMed,_) :: (solucoes(IdMed, medico(IdMed,_,_,_,_), R),
