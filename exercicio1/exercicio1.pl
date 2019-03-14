@@ -91,6 +91,9 @@
 % Garantir que o custo de cada consulta é válido (>= 0)
 +consulta(_,_,_,_,C) :: custoValido(C).
 
+% Garantir que não é possível remover uma consulta associado a um exame
+-consulta(Id,_,_,_,_) :: (solucoes(Id, exame(Id,_), R),
+                         comprimento(R, 0)).
 
 %--------- Médicos
 % Garantir que o id de cada médico é único
