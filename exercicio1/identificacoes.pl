@@ -8,17 +8,17 @@ identificaInstituicoes(R) :- solucoes(I, servico(_,_,I,_), Tmp),
 % Identificar utentes/serviços/consultas por critérios de seleção
 
 %--------- Utentes
-utenteID(Id, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
+utenteID(Id, R) :- solucoes(utente(Id,N,I,G,IdF,C), utente(Id,N,I,G,IdF,C), R).
 
-utenteNome(N, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
+utenteNome(N, R) :- solucoes(utente(Id,N,I,G,IdF,C), utente(Id,N,I,G,IdF,C), R).
 
-utenteIdade(I, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
+utenteIdade(I, R) :- solucoes(utente(Id,N,I,G,IdF,C), utente(Id,N,I,G,IdF,C), R).
 
-utenteCidade(C, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
+utenteCidade(C, R) :- solucoes(utente(Id,N,I,G,IdF,C), utente(Id,N,I,G,IdF,C), R).
 
-utenteGenero(G, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
+utenteGenero(G, R) :- solucoes(utente(Id,N,I,G,IdF,C), utente(Id,N,I,G,IdF,C), R).
 
-utenteFamilia(F, R) :- solucoes(utente(Id,N,I,G,F,C), utente(Id,N,I,G,F,C), R).
+utenteFamilia(IdF, R) :- solucoes(utente(Id,N,I,G,IdF,C), utente(Id,N,I,G,IdF,C), R).
 
 
 %--------- Serviços
