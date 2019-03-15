@@ -65,8 +65,8 @@
 
 %--------- Serviços
 % Garantir que o id de cada serviço é único
-+servico(Id,D,I,C) :: (solucoes(Id, servico(Id,D,I,C), R),
-                      comprimento(R, 1)).
++servico(Id,D,I,C) :: (solucoes(Id, servico(Id,_,_,_), R),
+                       comprimento(R, 1)).
 
 % Garantir que serviços com ids diferentes têm diferente informação
 +servico(Id,D,I,C) :: (solucoes((D,I,C), servico(_,D,I,C), R),
@@ -87,7 +87,7 @@
 
 %--------- Consultas
 % Garantir que o id de cada consulta é único
-+consulta(Id,D,IdU,IdS,C) :: (solucoes(Id, consulta(Id,D,IdU,IdS,C), R),
++consulta(Id,D,IdU,IdS,C) :: (solucoes(Id, consulta(Id,_,_,_,_), R),
                               comprimento(R, 1)).
 
 % Garantir que o id do utente associado à consulta existe
@@ -178,11 +178,6 @@
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Registar utentes, serviços, consultas, médicos, enfermeiros,
 % médicos e enfermeiros da família e exames
-
-idadeValida(I) :- I >= 0.
-custoValido(C) :- C >= 0.
-generoValido('M').
-generoValido('F').
 
 novoUtente(Id,N,I,G,IdF,C) :- evolucao(utente(Id,N,I,G,IdF,C)).
 
