@@ -20,7 +20,6 @@ utenteGenero(G, R) :- solucoes(utente(Id,N,I,G,IdF,C), utente(Id,N,I,G,IdF,C), R
 
 utenteFamilia(IdF, R) :- solucoes(utente(Id,N,I,G,IdF,C), utente(Id,N,I,G,IdF,C), R).
 
-
 %--------- Serviços
 servicoID(Id,R) :- solucoes(servico(Id,D,I,C), servico(Id,D,I,C), R).
 
@@ -87,7 +86,7 @@ servicosParaUtentesServicos([servico(Id,D,Ins,C)|XS], R) :-
     eliminaRepetidos(I3, R).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Identificar serviços realizados por utente/instituição/cidade;
+% Identificar serviços realizados por utente/instituição/cidade
 
 servicosPorUtente(IdUtente, R) :-
     solucoes(IdS, consulta(Id,D,IdUtente,IdS,C), I1),

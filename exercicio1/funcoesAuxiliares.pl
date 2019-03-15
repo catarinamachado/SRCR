@@ -1,10 +1,6 @@
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Funções Auxiliares
 
-% Calcula o valor de verdade contrário à resposta à questão
-nao(Q) :- Q, !, fail.
-nao(Q).
-
 % Encontra todas as soluções
 solucoes(X, XS, R) :- XS, assert(tmp(X)), fail.
 solucoes(X, XS, R) :- solucoesAux([], R).
@@ -58,7 +54,6 @@ concat([], R, R).
 concat([X|XS1], R, [X|XS2]) :- concat(XS1, R, XS2).
 
 % Merge Sort
-
 splitlist(L, [], L, 0).
 splitlist([H|T], [H|A], B, N) :- Nminus1 is N-1, splitlist(T, A, B, Nminus1).
 
@@ -80,6 +75,15 @@ mergeSortKeyValuePairASC(L, R) :-
     merge(Asort, Bsort, R).
 
 % Pega nos N primeiros de uma lista
-
 take(Lista,0,[]).
 take([X|XS], N1, [X|I]) :- N0 is N1-1, take(XS,N0,I).
+
+% Idade válida (>= 0)
+idadeValida(I) :- I >= 0.
+
+% Custo válido (>= 0)
+custoValido(C) :- C >= 0.
+
+% Género é masculino ('M') ou feminino ('F')
+generoValido('M').
+generoValido('F').
