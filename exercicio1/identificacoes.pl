@@ -134,3 +134,13 @@ servicosParaConsultasServicos([servico(Id,D,Ins,C)|XS], R) :-
     consultaIdServico(Id,I2),
     concat(I1, I2, I3),
     eliminaRepetidos(I3, R).
+
+servicosPorData(Data, R) :-
+    solucoes(IdS, consulta(Id,Data,IdU,IdS,C), I1),
+    eliminaRepetidos(I1, I2),
+    idServicoParaServico(I2, R).
+
+servicosPorCusto(Custo, R) :-
+    solucoes(IdS, consulta(Id,D,IdU,IdS,Custo), I1),
+    eliminaRepetidos(I1, I2),
+    idServicoParaServico(I2, R).
