@@ -62,6 +62,21 @@ enfermeiroGenero(G, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G
 
 enfermeiroIdServico(IdS, R) :- solucoes(enfermeiro(Id,N,I,G,IdS), enfermeiro(Id,N,I,G,IdS), R).
 
+%--------- Médicos e enfermeiros da família
+medEnfFamiliaIdFam(IdFam, R) :- solucoes(medEnfFamilia(IdFam,IdMed,IdEnf),
+                                         medEnfFamilia(IdFam,IdMed,IdEnf), R).
+
+medEnfFamiliaIdMed(IdMed, R) :- solucoes(medEnfFamilia(IdFam,IdMed,IdEnf),
+                                         medEnfFamilia(IdFam,IdMed,IdEnf), R).
+
+medEnfFamiliaIdEnf(IdEnf, R) :- solucoes(medEnfFamilia(IdFam,IdMed,IdEnf),
+                                         medEnfFamilia(IdFam,IdMed,IdEnf), R).
+
+%--------- Exames
+exameIdConsulta(IdConsulta, R) :- solucoes(exame(IdConsulta,D), exame(IdConsulta,D), R).
+
+exameDescricao(D, R) :- solucoes(exame(IdConsulta,D), exame(IdConsulta,D), R).
+
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Identificar os utentes de um serviço/instituição
 
