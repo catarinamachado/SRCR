@@ -13,7 +13,7 @@ utente(10,'Ana',34,'F',6,'Guimaraes').
 % serviço: #IdServ,Descrição,Instituição,Cidade -> {V,F}
 servico(1,'Pediatria','Hospital Santa Maria','Porto').
 servico(2,'Ortopedia','Hospital de Braga','Braga').
-servico(3,'Oftomologia','Hospital Santa Maria','Porto').
+servico(3,'Oftalmologia','Hospital Santa Maria','Porto').
 servico(4,'Cardiologia','Hospital de Braga','Braga').
 servico(5,'Cirurgia Geral','Hospital Egas Moniz','Lisboa').
 servico(6,'Estomatologia','Hospital Egas Moniz','Lisboa').
