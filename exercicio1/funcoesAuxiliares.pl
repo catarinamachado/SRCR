@@ -20,7 +20,7 @@ insercao(Q) :- retract(Q), !, fail.
 remocao(Q) :- retract(Q).
 remocao(Q) :- assert(Q), !, fail.
 
-% Testa se todos os meta-predicados são verdadeiros
+% Testa se todos os predicados são verdadeiros
 teste([]).
 teste([I|L]) :- I, teste(L).
 
