@@ -4,36 +4,30 @@
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
 % Invariantes Universais
 
-% Invariante que garante que não é possível adicionar conhecimento
-% que se sabe que é negativo forte / contradiz
-
-% Não permite adicionar conhecimento negativo repetido
-+(-T) :: (solucoes(T, -T, R),
-          comprimento(R, 1)).
-
-% Invariante que garante que não existe conhecimento repetido
-% para conhecimento perfeito positivo
+% Invariante que garante que não existe conhecimento
+% perfeito positivo repetido
 +T :: (solucoes(T, T, R),
        comprimento(R, 1)).
 
-% Não permite adicionar conhecimento negativo que contradiz o conhecimento positivo
-+(-T) :: nao(T).
+% Invariante que garante que não existe conhecimento
+% perfeito negativo repetido
++(-T) :: (solucoes(T, -T, R),
+          comprimento(R, 1)).
 
-% Não permite adicionar conhecimento positivo que contradiz o conhecimento negativo
+% Invariante que não permite adicionar conhecimento
+% perfeito positivo que contradiz conhecimento perfeito negativo
 +T :: nao(-T).
 
+% Invariante que não permite adicionar conhecimento
+% perfeito negativo que contradiz conhecimento perfeito positivo
++(-T) :: nao(T).
+
 % Invariante que garante que não existem excecoes repetidas
-+(excecao(T)) ::
-        (solucoes(T, excecao(T), R),
-         comprimento(R, 1)).
++(excecao(T)) :: (solucoes(T, excecao(T), R),
+                  comprimento(R, 1)).
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
 % Invariantes Estruturais e Referenciais: Utente
-
-% Invariante que impede a inserção de conhecimento perfeito positivo relativo
-% a um utente com nome interdito (conhecimento imperfeito interdito)
-+utente(Id,N,I,G,M) :: (solucoes((Id,Nint,I,G,M), (utente(Id,Nint,I,G,M), nulointerdito(Nint)), R),
-                        comprimento(R,0)).
 
 % Invariante que garante que o id de cada utente é único
 % para conhecimento perfeito positivo
@@ -46,18 +40,39 @@
                            comprimento(R, 1)).
 
 % Garantir que utentes com ids diferentes têm diferente informação
+% para conhecimento perfeito positivo
 +utente(Id,N,I,G,M) :: (solucoes((N,I,G,M), utente(_,N,I,G,M), R),
                         comprimento(R, 1)).
+
+% Garantir que utentes com ids diferentes têm diferente informação
+% para conhecimento perfeito negativo
++(-utente(Id,N,I,G,M)) :: (solucoes((N,I,G,M), -utente(_,N,I,G,M), R),
+                           comprimento(R, 1)).
+
+% Garantir que a idade do utente é válida (>= 0)
+% para conhecimento perfeito positivo
++utente(_,_,I,_,_) :: idadeValida(I).
+
+% Garantir que a idade do utente é válida (>= 0)
+% para conhecimento perfeito negativo
++(-utente(_,_,I,_,_)) :: idadeValida(I).
+
+% Garantir que o género do utente é 'M' ou 'F'
+% para conhecimento perfeito positivo
++utente(_,_,_,G,_) :: generoValido(G).
+
+% Garantir que o género do utente é 'M' ou 'F'
+% para conhecimento perfeito negativo
++(-utente(_,_,_,G,_)) :: generoValido(G).
+
+% Invariante que impede a inserção de conhecimento perfeito positivo relativo
+% a um utente com nome interdito (conhecimento imperfeito interdito)
++utente(Id,N,I,G,M) :: (solucoes((Id,Nint,I,G,M), (utente(Id,Nint,I,G,M), nulointerdito(Nint)), R),
+                        comprimento(R,0)).
 
 % Garantir que não é possível remover um utente com cuidados
 -utente(Id,_,_,_,_) :: (solucoes(Id, cuidado(_,Id,_,_,_), R),
                         comprimento(R, 0)).
-
-% Garantir que a idade do utente é válida (>= 0)
-+utente(_,_,I,_,_) :: idadeValida(I).
-
-% Garantir que o género do utente é 'M' ou 'F'
-+utente(_,_,_,G,_) :: generoValido(G).
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
 % Invariantes Estruturais e Referenciais: Prestador
