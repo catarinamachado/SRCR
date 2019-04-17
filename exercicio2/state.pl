@@ -15,27 +15,31 @@ utente(8,'Helena',25,'F','Lisboa').
 -utente(9,'Guilherme',58,'M','Porto').
 -utente(10,'Ana',34,'F','Guimaraes').
 
-% Conhecimento Imperfeito Impreciso
-% Não se sabe se o utente Edgar tem 31 ou 32 anos:
-excecao(utente(11,'Edgar',31,'M','Coimbra')).
-excecao(utente(11,'Edgar',32,'M','Coimbra')).
-
-% Não se sabe se a utente Soraia é de Leiria ou de Setúbal:
-excecao(utente(12,'Soraia',29,'F','Leiria')).
-excecao(utente(12,'Soraia',29,'F','Setubal')).
-
 % Conhecimento Imperfeito Incerto
 % Não se sabe a morada do Helder:
-utente(13,'Helder',30,'M',morada_desconhecida).
+utente(11,'Helder',30,'M',morada_desconhecida).
 excecao(utente(Id,N,I,G,M)) :- utente(Id,N,I,G,morada_desconhecida).
 
+% Conhecimento Imperfeito Impreciso
+% Não se sabe se o utente Edgar tem 31 ou 32 anos:
+excecao(utente(12,'Edgar',31,'M','Coimbra')).
+excecao(utente(12,'Edgar',32,'M','Coimbra')).
+
+% Não se sabe se a utente Soraia é de Leiria ou de Setúbal:
+excecao(utente(13,'Soraia',29,'F','Leiria')).
+excecao(utente(13,'Soraia',29,'F','Setubal')).
+
+% Não se sabe a idade exata do utente
+% apenas se sabe que tem entre 20 e 30 anos:
+excecao(utente(14,'Jupiter',I,'F','Braganca')) :- I >= 20, I =< 30.
+
 % Conhecimento Imperfeito Interdito
-% É impossível saber a morada do Tobias
-utente(14,'Tobias',50,'M',morada_impossivel).
+% É impossível saber a morada do utente:
+utente(15,'Tobias',50,'M',morada_impossivel).
 excecao(utente(Id,N,I,G,M)) :- utente(Id,N,I,G,morada_impossivel).
 nulointerdito(morada_impossivel).
 +utente(Id,N,I,G,M) ::
-    (solucoes((Id,N,I,G,M), (utente(14,'Tobias',50,'M',morada_impossivel), nao(nulointerdito(morada_impossivel))), R),
+    (solucoes((Id,N,I,G,M), (utente(15,'Tobias',50,'M',morada_impossivel), nao(nulointerdito(morada_impossivel))), R),
      comprimento(R,0)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
@@ -54,22 +58,22 @@ prestador(7,'Patricia',39,'F','Genetica Medica','Hospital Pulido Valente').
 -prestador(8,'Luisa',40,'F','Oftalmologia','Hospital de Braga').
 -prestador(9,'Sara',35,'F','Estomatologia','Hospital Egas Moniz').
 
-% Conhecimento Imperfeito Impreciso
-% Não se sabe se o prestador Rodrigo é especialista de Cardiologia ou Pediatria:
-excecao(prestador(10,'Rodrigo',40,'M','Cardiologia','Hospital Santa Maria')).
-excecao(prestador(10,'Rodrigo',40,'M','Pediatria','Hospital Santa Maria')).
-
-% Não se sabe se o prestador se chama Flávio ou Fábio:
-excecao(prestador(11,'Flávio',29,'M','Dermatologia','Hospital de Braga')).
-excecao(prestador(11,'Fábio',29,'M','Dermatologia','Hospital de Braga')).
-
 % Conhecimento Imperfeito Incerto
 % Não se sabe a idade da prestadora Silvia:
-prestador(12,'Silvia',idade_desconhecida,'F','Cirurgia Geral','Hospital de Braga').
+prestador(10,'Silvia',idade_desconhecida,'F','Cirurgia Geral','Hospital de Braga').
 excecao(prestador(Id,N,I,G,E,Inst)) :- prestador(Id,N,idade_desconhecida,G,E,Inst).
 
+% Conhecimento Imperfeito Impreciso
+% Não se sabe se o prestador Rodrigo é especialista de Cardiologia ou Pediatria:
+excecao(prestador(11,'Rodrigo',40,'M','Cardiologia','Hospital Santa Maria')).
+excecao(prestador(11,'Rodrigo',40,'M','Pediatria','Hospital Santa Maria')).
+
+% Não se sabe se o prestador se chama Flávio ou Fábio:
+excecao(prestador(12,'Flávio',29,'M','Dermatologia','Hospital de Braga')).
+excecao(prestador(12,'Fábio',29,'M','Dermatologia','Hospital de Braga')).
+
 % Conhecimento Imperfeito Interdito
-% É impossível saber a idade do prestador
+% É impossível saber a idade do prestador:
 prestador(13,'Maria Isabel',idade_impossivel,'F','Cardiologia','Hospital Egas Moniz').
 excecao(prestador(Id,N,I,G,E,Inst)) :- prestador(Id,N,idade_impossivel,G,E,Inst).
 nulointerdito(idade_impossivel).
@@ -83,12 +87,12 @@ nulointerdito(idade_impossivel).
 % Extensão do predicado cuidado: Data,#IdUt,#IdPrest,Descrição,Custo -> {V,F,D}
 
 % Conhecimento Perfeito Positivo
-cuidado('01-01-2018',1,4,'Exame de Acufenometria',100).
+cuidado('01-01-2018',1,4,'Ouvidos',100).
 cuidado('23-05-2016',5,1,'Consulta de rotina',9).
 cuidado('05-02-2019',3,5,'Teleconsulta de Cirurgia Geral',45).
 cuidado('13-12-2018',8,7,'Consulta Pre-Concepcional',7).
 cuidado('26-10-2016',2,2,'Consulta de Ortopedia - Joelho',30).
-cuidado('10-03-2016',7,3,'Exame Biopsias da Pele e Mucosas',0).
+cuidado('10-03-2016',7,3,'Biopsia da Pele e Mucosas',0).
 cuidado('04-04-2017',5,7,'Consulta de Aconselhamento Genetico',34).
 cuidado('12-12-2017',3,5,'Manometria Anorretal',4).
 cuidado('09-09-2017',6,2,'Consulta de Ortopedia - Coluna',20).
@@ -96,28 +100,17 @@ cuidado('09-09-2017',6,2,'Consulta de Ortopedia - Coluna',20).
 % Conhecimento Perfeito Negativo
 -cuidado('01-01-2018',4,8,'Avaliação dos Campos Visuais',10).
 -cuidado('29-02-2017',6,6,'Eletrocardiografia',50).
--cuidado('02-04-2017',10,9,'Exame as glandulas salivares',23).
-
-% Conhecimento Imperfeito Impreciso
-% Não se sabe se o cuidado foi efetuado no dia 1 ou 2 de março de 2019:
-excecao(cuidado('01-03-2019',5,1,'Consulta de rotina',9)).
-excecao(cuidado('02-03-2019',5,1,'Consulta de rotina',9)).
+-cuidado('02-04-2017',10,9,'Glandulas salivares',23).
 
 % Conhecimento Imperfeito Incerto
 % Não se sabe a descrição da consulta:
 cuidado('02-04-2019',3,5,descricao_desconhecida,20).
 excecao(cuidado(D,IdUt,IdPrest,Desc,C)) :- cuidado(D,IdUt,IdPrest,descricao_desconhecida,C).
 
-% Conhecimento Imperfeito Interdito
-% É impossível saber o custo do cuidado
-cuidado('12-05-2019',11,2,'Consulta de Ortopedia - Joelho',custo_impossivel).
-excecao(cuidado(D,IdUt,IdPrest,Desc,C)) :- cuidado(D,IdUt,IdPrest,Desc,custo_impossivel).
-nulointerdito(custo_impossivel).
-+cuidado(D,IdUt,IdPrest,Desc,C) ::
-    (solucoes((D,IdUt,IdPrest,Desc,C),
-        (cuidado('12-05-2019',11,2,'Consulta de Ortopedia - Joelho',custo_impossivel),
-        nao(nulointerdito(custo_impossivel))), R),
-     comprimento(R,0)).
+% Conhecimento Imperfeito Impreciso
+% Não se sabe se o cuidado foi efetuado no dia 1 ou 2 de março de 2019:
+excecao(cuidado('01-03-2019',5,1,'Consulta de rotina',9)).
+excecao(cuidado('02-03-2019',5,1,'Consulta de rotina',9)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensão do predicado exame: #IdUt,#IdPrest,Descrição -> {V,F,D}
@@ -130,12 +123,12 @@ exame(3,3,'Endoscopia').
 % Conhecimento Perfeito Negativo
 -exame(4,4,'Exame de Sangue').
 
-% Conhecimento Imperfeito Impreciso
-% Não se sabe se o exame foi feito pelo prestador 5 ou 6
-excecao(exame(5,5,'Exame a urina')).
-excecao(exame(5,6,'Exame a urina')).
-
 % Conhecimento Imperfeito Incerto
 % Não se sabe a descrição do exame:
 exame(7,7,descricao_desconhecida).
 excecao(exame(IdUt,IdPrest,Desc)) :- exame(IdUt,IdPrest,descricao_desconhecida).
+
+% Conhecimento Imperfeito Impreciso
+% Não se sabe se o exame foi feito pelo prestador 5 ou 6:
+excecao(exame(5,5,'Exame a urina')).
+excecao(exame(5,6,'Exame a urina')).
