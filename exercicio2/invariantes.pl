@@ -88,18 +88,34 @@
                                    comprimento(R, 1)).
 
 % Garantir que prestadores com ids diferentes têm diferente informação
+% para conhecimento perfeito positivo
 +prestador(Id,N,I,G,E,Inst) :: (solucoes((N,I,G,E,Inst), prestador(_,N,I,G,E,Inst), R),
                                 comprimento(R, 1)).
+
+% Garantir que prestadores com ids diferentes têm diferente informação
+% para conhecimento perfeito negativo
++(-prestador(Id,N,I,G,E,Inst)) :: (solucoes((N,I,G,E,Inst), -prestador(_,N,I,G,E,Inst), R),
+                                   comprimento(R, 1)).
+
+% Garantir que a idade do prestador é válida (>= 0)
+% para conhecimento perfeito positivo
++prestador(_,_,I,_,_,_) :: idadeValida(I).
+
+% Garantir que a idade do prestador é válida (>= 0)
+% para conhecimento perfeito negativo
++(-prestador(_,_,I,_,_,_)) :: idadeValida(I).
+
+% Garantir que o género do prestador é 'M' ou 'F'
+% para conhecimento perfeito positivo
++prestador(_,_,_,G,_,_) :: generoValido(G).
+
+% Garantir que o género do prestador é 'M' ou 'F'
+% para conhecimento perfeito negativo
++(-prestador(_,_,_,G,_,_)) :: generoValido(G).
 
 % Garantir que não é possível remover um prestador com cuidados
 -prestador(Id,_,_,_,_,_) :: (solucoes(Id, cuidado(_,_,Id,_,_), R),
                              comprimento(R, 0)).
-
-% Garantir que a idade do prestador é válida (>= 0)
-+prestador(_,_,I,_,_,_) :: idadeValida(I).
-
-% Garantir que o género do prestador é 'M' ou 'F'
-+prestador(_,_,_,G,_,_) :: generoValido(G).
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
 % Invariantes Estruturais e Referenciais: Cuidado
@@ -113,15 +129,20 @@
                               comprimento(R, 1)).
 
 % Garantir que o custo de cada cuidado é válido (>= 0)
+% para conhecimento perfeito positivo
 +cuidado(_,_,_,_,C) :: custoValido(C).
+
+% Garantir que o custo de cada cuidado é válido (>= 0)
+% para conhecimento perfeito negativo
++(-cuidado(_,_,_,_,C)) :: custoValido(C).
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
 % Invariantes Estruturais e Referenciais: Exame
 
-% Garantir que o id do utente associado exame existe
+% Garantir que o id do utente associado ao exame existe
 +exame(IdUt,_,_) :: (solucoes(IdUt, utente(IdUt,_,_,_,_), R),
                      comprimento(R, 1)).
 
-% Garantir que o id do prestador associado exame existe
+% Garantir que o id do prestador associado ao exame existe
 +exame(_,IdPrest,_) :: (solucoes(IdPrest, prestador(IdPrest,_,_,_,_,_), R),
                         comprimento(R, 1)).
