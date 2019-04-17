@@ -8,17 +8,18 @@
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % SICStus PROLOG: Declaracoes iniciais
 
-:- set_prolog_flag( discontiguous_warnings,off ).
-:- set_prolog_flag( single_var_warnings,off ).
-:- set_prolog_flag( unknown,fail ).
+:- set_prolog_flag(discontiguous_warnings,off).
+:- set_prolog_flag(single_var_warnings,off).
+:- set_prolog_flag(unknown,fail).
 
-:- op( 900,xfy,'::' ).
-:- op( 1100,xfy,'??' ).
+:- op(900,xfy,'::').
+:- op(1100,xfy,'??').
 
 :- dynamic '-'/1.
 :- dynamic utente/5.
 :- dynamic prestador/6.
 :- dynamic cuidado/5.
+:- dynamic exame/3.
 
 :- dynamic excecao/1.
 :- dynamic nulointerdito/1.
@@ -28,169 +29,102 @@
 
 :- include('state.pl').
 
-:- include('stateControl.pl').
+:- include('evolucao_involucao.pl').
 :- include('predicadosAuxiliares.pl').
-
+:- include('invariantes.pl').
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Pressuposto do Mundo Fechado para o predicado utente
+% Pressuposto do Mundo Fechado
+% para o predicado utente e para o predicado prestador
 
 -utente(Id,N,I,G,M) :-
     nao(utente(Id,N,I,G,M)),
     nao(excecao(utente(Id,N,I,G,M))).
 
+-prestador(Id,N,I,G,E,Inst) :-
+    nao(prestador(Id,N,I,G,E,Inst)),
+    nao(excecao(prestador(Id,N,I,G,E,Inst))).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Invariantes Estruturais e Referenciais
-
-%--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Invariantes Estruturais e Referenciais: Utente
-
-
-% ...
-
+% Sistema de Inferência
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
-% Invariantes sobre Conhecimento Imperfeito Interdito
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um utente com nome interdito (conhecimento imperfeito interdito).
-+utente(Id,N,I,G,M) :: (solucoes((Id,Nint,I,G,M), (utente(Id,Nint,I,G,M), nao(nulointerdito(Nint))), R),
-                        comprimento(R,0)).
-
-+(-utente(Id,N,I,G,M)) :: (solucoes((Id,Nint,I,G,M), (utente(Id,Nint,I,G,M), nao(nulointerdito(Nint))), R),
-                           comprimento(R,0)).
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um utente com idade interdita (conhecimento imperfeito interdito).
-+utente(Id,N,I,G,M) :: (solucoes((Id,N,Iint,G,M), (utente(Id,N,Iint,G,M), nao(nulointerdito(Iint))), R),
-                        comprimento(R,0)).
-
-+(-utente(Id,N,I,G,M)) :: (solucoes((Id,N,Iint,G,M), (utente(Id,N,Iint,G,M), nao(nulointerdito(Iint))), R),
-                           comprimento(R,0)).
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um utente com genero interdito (conhecimento imperfeito interdito).
-+utente(Id,N,I,G,M) :: (solucoes((Id,N,I,Gint,M), (utente(Id,N,I,Gint,M), nao(nulointerdito(Gint))), R),
-                        comprimento(R,0)).
-
-+(-utente(Id,N,I,G,M)) :: (solucoes((Id,N,I,Gint,M), (utente(Id,N,I,Gint,M), nao(nulointerdito(Gint))), R),
-                           comprimento(R,0)).
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um utente com morada interdita (conhecimento imperfeito interdito).
-+utente(Id,N,I,G,M) :: (solucoes((Id,N,I,G,Mint), (utente(Id,N,I,G,Mint), nao(nulointerdito(Mint))), R),
-                        comprimento(R,0)).
-
-+(-utente(Id,N,I,G,M)) :: (solucoes((Id,N,I,G,Mint), (utente(Id,N,I,G,Mint), nao(nulointerdito(Mint))), R),
-                           comprimento(R,0)).
-
-
-%--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Invariantes Estruturais e Referenciais: Prestador
-
-
-% ...
+% Extensao do meta-predicado si: Questao,Resposta
+%                                Resposta = {verdadeiro,falso,desconhecido}
+% capaz de responder a uma única questão
+si(Q,verdadeiro) :- Q.
+si(Q,falso) :- -Q.
+si(Q,desconhecido) :- nao(Q),
+                      nao(-Q).
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
-% Invariantes sobre Conhecimento Imperfeito Interdito
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um prestador com nome interdito (conhecimento imperfeito interdito).
-+prestador(Id,N,I,G,E,Inst) :: (solucoes((Id,Nint,I,G,E,Inst), (prestador(Id,Nint,I,G,E,Inst), nao(nulointerdito(Nint))), R),
-                                comprimento(R,0)).
-
-+(-prestador(Id,N,I,G,E,Inst)) :: (solucoes((Id,Nint,I,G,E,Inst), (prestador(Id,Nint,I,G,E,Inst), nao(nulointerdito(Nint))), R),
-                                   comprimento(R,0)).
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um prestador com idade interdita (conhecimento imperfeito interdito).
-+prestador(Id,N,I,G,E,Inst) :: (solucoes((Id,N,Iint,G,E,Inst), (prestador(Id,N,Iint,G,E,Inst), nao(nulointerdito(Iint))), R),
-                                comprimento(R,0)).
-
-+(-prestador(Id,N,I,G,E,Inst)) :: (solucoes((Id,N,Iint,G,E,Inst), (prestador(Id,N,Iint,G,E,Inst), nao(nulointerdito(Iint))), R),
-                                   comprimento(R,0)).
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um prestador com genero interdito (conhecimento imperfeito interdito).
-+prestador(Id,N,I,G,E,Inst) :: (solucoes((Id,N,I,Gint,E,Inst), (prestador(Id,N,I,Gint,E,Inst), nao(nulointerdito(Gint))), R),
-                                comprimento(R,0)).
-
-+(-prestador(Id,N,I,G,E,Inst)) :: (solucoes((Id,N,I,Gint,E,Inst), (prestador(Id,N,I,Gint,E,Inst), nao(nulointerdito(Gint))), R),
-                                   comprimento(R,0)).
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um prestador com especialidade interdita (conhecimento imperfeito interdito).
-+prestador(Id,N,I,G,E,Inst) :: (solucoes((Id,N,I,G,Eint,Inst), (prestador(Id,N,I,G,Eint,Inst), nao(nulointerdito(Eint))), R),
-                                comprimento(R,0)).
-
-+(-prestador(Id,N,I,G,E,Inst)) :: (solucoes((Id,N,I,G,Eint,Inst), (prestador(Id,N,I,G,Eint,Inst), nao(nulointerdito(Eint))), R),
-                                   comprimento(R,0)).
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um prestador com instituição interdita (conhecimento imperfeito interdito).
-+prestador(Id,N,I,G,E,Inst) :: (solucoes((Id,N,I,G,E,InstInt), (prestador(Id,N,I,G,E,InstInt), nao(nulointerdito(InstInt))), R),
-                                comprimento(R,0)).
-
-+(-prestador(Id,N,I,G,E,Inst)) :: (solucoes((Id,N,I,G,E,InstInt), (prestador(Id,N,I,G,E,InstInt), nao(nulointerdito(InstInt))), R),
-                                   comprimento(R,0)).
-
-
-%--------------------------------- - - - - - - - - - -  -  -  -  -   -
-% Invariantes Estruturais e Referenciais: Cuidado
-
-
-% ...
+% Extensao do meta-predicado siMaster: Questao,Resposta
+%                                Resposta = {verdadeiro,falso,impreciso,desconhecido}
+% capaz de responder a uma única questão com mais detalhe na resposta
+siMaster(Q,verdadeiro) :- Q.
+siMaster(Q,falso) :- -Q.
+siMaster(Q,impreciso) :- excecao(Q),
+                         nao(Q),
+                         nao(-Q).
+siMaster(Q,desconhecido) :- nao(Q),
+                            nao(-Q).
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
-% Invariantes sobre Conhecimento Imperfeito Interdito
+% Extensao do meta-predicado siLista: [Questao],[Resposta] -> {V,F,D}
+% capaz de responder a várias questões em simultâneo
+siLista([],[]).
+siLista([Q|Qs],[R|Rs]) :- si(Q,R),
+                          siLista(Qs,Rs).
 
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um cuidado com data interdita (conhecimento imperfeito interdito).
-+cuidado(D,IdUt,IdPrest,Desc,C) ::
-        (solucoes((Dint,IdUt,IdPrest,Desc,C), (cuidado(Dint,IdUt,IdPrest,Desc,C), nao(nulointerdito(Dint))), R),
-         comprimento(R,0)).
+%- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado query: (Operador, Questao1, Questao2),Resposta -> {V,F,D}
+% capaz de fazer a conjunção ou a disjunção de duas questões
+% produzindo um resultado final
+query(('OR',Q1,Q2),R) :- query(Q1,R1), query(Q2,R2), disjuncao(R1,R2,R).
+query(('AND',Q1,Q2),R) :- query(Q1,R1), query(Q2,R2), conjuncao(R1,R2,R).
+query(Q,R) :- si(Q,R).
 
-+(-cuidado(D,IdUt,IdPrest,Desc,C)) ::
-        (solucoes((Dint,IdUt,IdPrest,Desc,C), (cuidado(Dint,IdUt,IdPrest,Desc,C), nao(nulointerdito(Dint))), R),
-         comprimento(R,0)).
+%- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado queryConjuncao: [Questao],Resposta -> {V,F,D}
+% capaz de fazer a conjunção de uma lista de questões
+% produzindo um resultado final
+queryConjuncao([],R).
+queryConjuncao([Q],R) :- si(Q,R).
+queryConjuncao([Q|Qs], R) :- si(Q, R1), queryConjuncao(Qs,R2), conjuncao(R1,R2,R).
 
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um cuidado com id de utente interdito (conhecimento imperfeito interdito).
-+cuidado(D,IdUt,IdPrest,Desc,C) ::
-        (solucoes((D,IdUtInt,IdPrest,Desc,C), (cuidado(D,IdUtInt,IdPrest,Desc,C), nao(nulointerdito(IdUtInt))), R),
-         comprimento(R,0)).
+% Extensao do predicado queryDisjuncao: [Questao],Resposta -> {V,F,D}
+% capaz de fazer a disjunção de uma lista de questões
+% produzindo um resultado final
+queryDisjuncao([],R).
+queryDisjuncao([Q],R) :- si(Q,R).
+queryDisjuncao([Q|Qs], R) :- si(Q, R1), queryDisjuncao(Qs,R2), disjuncao(R1,R2,R).
 
-+(-cuidado(D,IdUt,IdPrest,Desc,C)) ::
-        (solucoes((D,IdUtInt,IdPrest,Desc,C), (cuidado(D,IdUtInt,IdPrest,Desc,C), nao(nulointerdito(IdUtInt))), R),
-         comprimento(R,0)).
+%- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
+% Extensao do meta-predicado queries: [Questao], Resposta -> {V,F,D}
+% capaz de fazer a conjunção e/ou disjunção de uma lista de questões
+% produzindo um resultado final
+queries([],verdadeiro).
+queries([Q],R) :- si(Q,R).
+queries([Q1,'AND'|Qs],R) :- si(Q1,R1),
+                            queries(Qs,R2),
+                            conjuncao(R1,R2,R).
+queries([Q1,'OR'|Qs],R) :- si(Q1,R1),
+                           queries(Qs,R2),
+                           disjuncao(R1,R2,R).
 
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um cuidado com id de prestador interdito (conhecimento imperfeito interdito).
-+cuidado(D,IdUt,IdPrest,Desc,C) ::
-        (solucoes((D,IdUt,IdPrestInt,Desc,C), (cuidado(D,IdUt,IdPrestInt,Desc,C), nao(nulointerdito(IdPrestInt))), R),
-         comprimento(R,0)).
+%- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado conjuncao: X,Y -> {V,F,D}
+conjuncao(verdadeiro,verdadeiro,verdadeiro).
+conjuncao(verdadeiro,desconhecido,desconhecido).
+conjuncao(desconhecido,verdadeiro,desconhecido).
+conjuncao(desconhecido,desconhecido,desconhecido).
+conjuncao(falso,_,falso).
+conjuncao(_,falso,falso).
 
-+(-cuidado(D,IdUt,IdPrest,Desc,C)) ::
-        (solucoes((D,IdUt,IdPrestInt,Desc,C), (cuidado(D,IdUt,IdPrestInt,Desc,C), nao(nulointerdito(IdPrestInt))), R),
-         comprimento(R,0)).
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um cuidado com descrição interdita (conhecimento imperfeito interdito).
-+cuidado(D,IdUt,IdPrest,Desc,C) ::
-        (solucoes((D,IdUt,IdPrest,DescInt,C), (cuidado(D,IdUt,IdPrest,DescInt,C), nao(nulointerdito(DescInt))), R),
-         comprimento(R,0)).
-
-+(-cuidado(D,IdUt,IdPrest,Desc,C)) ::
-        (solucoes((D,IdUt,IdPrest,DescInt,C), (cuidado(D,IdUt,IdPrest,DescInt,C), nao(nulointerdito(DescInt))), R),
-         comprimento(R,0)).
-
-% Invariante que impede a inserção de conhecimento perfeito positivo e negativo relativo
-% a um cuidado com custo interdito (conhecimento imperfeito interdito).
-+cuidado(D,IdUt,IdPrest,Desc,C) ::
-        (solucoes((D,IdUt,IdPrest,Desc,Cint), (cuidado(D,IdUt,IdPrest,Desc,Cint), nao(nulointerdito(Cint))), R),
-         comprimento(R,0)).
-
-+(-cuidado(D,IdUt,IdPrest,Desc,C)) ::
-        (solucoes((D,IdUt,IdPrest,Desc,Cint), (cuidado(D,IdUt,IdPrest,Desc,Cint), nao(nulointerdito(Cint))), R),
-         comprimento(R,0)).
+% Extensao do predicado disjuncao: X,Y -> {V,F,D}
+disjuncao(verdadeiro,_,verdadeiro).
+disjuncao(_,verdadeiro,verdadeiro).
+disjuncao(falso,falso,falso).
+disjuncao(falso,desconhecido,desconhecido).
+disjuncao(desconhecido,falso,desconhecido).
+disjuncao(desconhecido,desconhecido,desconhecido).
