@@ -4,14 +4,12 @@
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do meta-predicado não: Q -> {V,F}
 % Devolve o valor de verdade contrário a Q (negação fraca)
-
 nao(Q) :- Q, !, fail.
 nao(Q).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do predicado soluções: X,XS,R -> {V,F}
 % Encontra todas as soluções
-
 solucoes(X, XS, R) :- XS, assert(tmp(X)), fail.
 solucoes(X, XS, R) :- solucoesAux([], R).
 
@@ -21,7 +19,6 @@ solucoesAux(R, R).
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Extensao do predicado comprimento: X,R -> {V,F}
 % Devolve o comprimento de uma lista
-
 comprimento([],0).
 comprimento([_|XS],R) :- comprimento( XS,S ), R is 1 + S.
 

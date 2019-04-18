@@ -77,14 +77,6 @@ siLista([Q|Qs],[R|Rs]) :- si(Q,R),
                           siLista(Qs,Rs).
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
-% Extensao do predicado query: (Operador, Questao1, Questao2),Resposta -> {V,F,D}
-% capaz de fazer a conjunção ou a disjunção de duas questões
-% produzindo um resultado final
-query(('OR',Q1,Q2),R) :- query(Q1,R1), query(Q2,R2), disjuncao(R1,R2,R).
-query(('AND',Q1,Q2),R) :- query(Q1,R1), query(Q2,R2), conjuncao(R1,R2,R).
-query(Q,R) :- si(Q,R).
-
-%- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
 % Extensao do predicado queryConjuncao: [Questao],Resposta -> {V,F,D}
 % capaz de fazer a conjunção de uma lista de questões
 % produzindo um resultado final
@@ -98,6 +90,14 @@ queryConjuncao([Q|Qs], R) :- si(Q, R1), queryConjuncao(Qs,R2), conjuncao(R1,R2,R
 queryDisjuncao([],R).
 queryDisjuncao([Q],R) :- si(Q,R).
 queryDisjuncao([Q|Qs], R) :- si(Q, R1), queryDisjuncao(Qs,R2), disjuncao(R1,R2,R).
+
+%- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
+% Extensao do predicado query: (Operador, Questao1, Questao2),Resposta -> {V,F,D}
+% capaz de fazer a conjunção ou a disjunção de duas questões
+% produzindo um resultado final
+query(('OR',Q1,Q2),R) :- query(Q1,R1), query(Q2,R2), disjuncao(R1,R2,R).
+query(('AND',Q1,Q2),R) :- query(Q1,R1), query(Q2,R2), conjuncao(R1,R2,R).
+query(Q,R) :- si(Q,R).
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
 % Extensao do meta-predicado queries: [Questao], Resposta -> {V,F,D}

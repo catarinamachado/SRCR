@@ -69,8 +69,8 @@ excecao(prestador(11,'Rodrigo',40,'M','Cardiologia','Hospital Santa Maria')).
 excecao(prestador(11,'Rodrigo',40,'M','Pediatria','Hospital Santa Maria')).
 
 % Não se sabe se o prestador se chama Flávio ou Fábio:
-excecao(prestador(12,'Flávio',29,'M','Dermatologia','Hospital de Braga')).
-excecao(prestador(12,'Fábio',29,'M','Dermatologia','Hospital de Braga')).
+excecao(prestador(12,'Flavio',29,'M','Dermatologia','Hospital de Braga')).
+excecao(prestador(12,'Fabio',29,'M','Dermatologia','Hospital de Braga')).
 
 % Conhecimento Imperfeito Interdito
 % É impossível saber a idade do prestador:
@@ -98,7 +98,7 @@ cuidado('12-12-2017',3,5,'Manometria Anorretal',4).
 cuidado('09-09-2017',6,2,'Consulta de Ortopedia - Coluna',20).
 
 % Conhecimento Perfeito Negativo
--cuidado('01-01-2018',4,8,'Avaliação dos Campos Visuais',10).
+-cuidado('01-01-2018',4,8,'Avaliacao dos Campos Visuais',10).
 -cuidado('29-02-2017',6,6,'Eletrocardiografia',50).
 -cuidado('02-04-2017',10,9,'Glandulas salivares',23).
 

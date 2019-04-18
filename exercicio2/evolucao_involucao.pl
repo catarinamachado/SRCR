@@ -156,23 +156,34 @@ evolucao(exame(IdUt,IdPrest,Descricao_desconhecida), exame, incerto, descricao) 
 % Evolução de conhecimento imperfeito impreciso
 
 % Insere conhecimento imperfeito impreciso na base de conhecimento
-% seja de utente, prestador ou cuidado
+% seja de utente, prestador, cuidado ou exame
 evolucao(T, impreciso) :-
     solucoes(I, +(excecao(T))::I, Lint),
     insercao(excecao(T)),
     teste(Lint).
+
+% Insere conhecimento imperfeito impreciso na base de conhecimento
+% no caso de utente com idade contida dentro de um intervalo finito de valores
+evolucao(utente(Id,N,Idade_imprecisa,G,M), utente, impreciso, idade, LimiteInferior, LimiteSuperior) :-
+    insercao((excecao(utente(Id,N,Idade_imprecisa,G,M)) :-
+                    Idade_imprecisa >= LimiteInferior, Idade_imprecisa =< LimiteSuperior)).
+
+% Insere conhecimento imperfeito impreciso na base de conhecimento
+% no caso de prestador com idade contida dentro de um intervalo finito de valores
+evolucao(prestador(Id,N,Idade_imprecisa,G,E,Inst), prestador, impreciso, idade, LimiteInferior, LimiteSuperior) :-
+    insercao((excecao(prestador(Id,N,Idade_imprecisa,G,E,Inst)) :-
+                    Idade_imprecisa >= LimiteInferior, Idade_imprecisa =< LimiteSuperior)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Evolução de conhecimento imperfeito interdito
 
 % Insere conhecimento imperfeito interdito na base de conhecimento
 % no caso de utente com nome interdito
- evolucao(utente(Id,Nome_impossivel,I,G,M), utente, interdito, morada) :-
+ evolucao(utente(Id,Nome_impossivel,I,G,M), utente, interdito, nome) :-
     evolucao(utente(Id,Nome_impossivel,I,G,M), positivo),
     insercao((excecao(utente(IdUt,Nome,Idade,Genero,Morada)) :-
                 utente(IdUt,Nome_impossivel,Idade,Genero,Morada))),
     insercao((nulointerdito(Nome_impossivel))).
-
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Involução de conhecimento perfeito (positivo e negativo)
@@ -329,18 +340,30 @@ involucao(exame(IdUt,IdPrest,Descricao_desconhecida), exame, incerto, descricao)
 % Involução de conhecimento imperfeito impreciso
 
 % Retira conhecimento imperfeito impreciso na base de conhecimento
-% seja de utente, prestador ou cuidado
+% seja de utente, prestador, cuidado ou exame
 involucao(T, impreciso) :-
     solucoes(I, -(excecao(T))::I, Lint),
     remocao(excecao(T)),
     teste(Lint).
+
+% Retira conhecimento imperfeito impreciso na base de conhecimento
+% no caso de utente com idade contida dentro de um intervalo finito de valores
+involucao(utente(Id,N,Idade_imprecisa,G,M), utente, impreciso, idade, LimiteInferior, LimiteSuperior) :-
+    remocao((excecao(utente(Id,N,Idade_imprecisa,G,M)) :-
+                    Idade_imprecisa >= LimiteInferior, Idade_imprecisa =< LimiteSuperior)).
+
+% Retira conhecimento imperfeito impreciso na base de conhecimento
+% no caso de prestador com idade contida dentro de um intervalo finito de valores
+involucao(prestador(Id,N,Idade_imprecisa,G,E,Inst), prestador, impreciso, idade, LimiteInferior, LimiteSuperior) :-
+    remocao((excecao(prestador(Id,N,Idade_imprecisa,G,E,Inst)) :-
+                    Idade_imprecisa >= LimiteInferior, Idade_imprecisa =< LimiteSuperior)).
 
 %--------------------------------- - - - - - - - - - -  -  -  -  -   -
 % Involução de conhecimento imperfeito interdito
 
 % Retira conhecimento imperfeito interdito na base de conhecimento
 % no caso de utente com nome interdito
- involucao(utente(Id,Nome_impossivel,I,G,M), utente, interdito, morada) :-
+ involucao(utente(Id,Nome_impossivel,I,G,M), utente, interdito, nome) :-
     involucao(utente(Id,Nome_impossivel,I,G,M), positivo),
     remocao((excecao(utente(IdUt,Nome,Idade,Genero,Morada)) :-
                 utente(IdUt,Nome_impossivel,Idade,Genero,Morada))),
