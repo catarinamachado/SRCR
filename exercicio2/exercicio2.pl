@@ -58,18 +58,6 @@ si(Q,desconhecido) :- nao(Q),
                       nao(-Q).
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
-% Extensao do meta-predicado siMaster: Questao,Resposta
-%                                Resposta = {verdadeiro,falso,impreciso,desconhecido}
-% capaz de responder a uma única questão com mais detalhe na resposta
-siMaster(Q,verdadeiro) :- Q.
-siMaster(Q,falso) :- -Q.
-siMaster(Q,impreciso) :- excecao(Q),
-                         nao(Q),
-                         nao(-Q).
-siMaster(Q,desconhecido) :- nao(Q),
-                            nao(-Q).
-
-%- - - - - - - - - - - - - - - - - - - - - - - - - - -  -  -  -  -   -
 % Extensao do meta-predicado siLista: [Questao],[Resposta] -> {V,F,D}
 % capaz de responder a várias questões em simultâneo
 siLista([],[]).
