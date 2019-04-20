@@ -5,6 +5,7 @@
 
 
 * **2.º Exercício:** Programação em lógica estendida e Conhecimento imperfeito. Sistema de Representação de Conhecimento e Raciocínio com capacidade para caracterizar um universo de discurso na área da prestação de cuidados de saúde pela realização de serviços de atos médicos ([enunciado](https://github.com/catarinamachado/SRCR/blob/master/exercicio2/exercicio2.pdf)).
+**Relatório final [aqui](https://github.com/catarinamachado/SRCR/blob/master/Relatorio_exercicio2.pdf).**
 
 
 
